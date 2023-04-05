@@ -86,16 +86,6 @@ class _HomeState extends State<Home> {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              TextFormField(
-                decoration: InputDecoration(hintText: 'اسم ستوري'),
-                // The validator receives the text that the user has entered.
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
               DropdownButton(
                   hint: Text(
                     'chose role',
@@ -104,7 +94,7 @@ class _HomeState extends State<Home> {
                   isExpanded: true,
                   items: [
                     DropdownMenuItem(
-                      child: Text('free'),
+                      child: Text('اختر القصص التي تريد تخصيصها '),
                       value: 'expert',
                     ),
                     DropdownMenuItem(
@@ -113,6 +103,16 @@ class _HomeState extends State<Home> {
                     )
                   ],
                   onChanged: (value) {}),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'اسم جديد ستوري'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
               GestureDetector(
                 onTap: () async {
                   FilePickerResult? result =
