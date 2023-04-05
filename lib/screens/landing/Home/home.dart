@@ -25,27 +25,32 @@ class _HomeState extends State<Home> {
         child: Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             height: 150,
-            child: ReorderableListView(
-              scrollDirection: Axis.horizontal,
+            child: Row(
               children: [
-                for (int index = 0; index < _items.length; index += 1)
-                  storybutton(
-                    key: ValueKey(index),
-                  ),
+                IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+                ReorderableListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    for (int index = 0; index < _items.length; index += 1)
+                      storybutton(
+                        key: ValueKey(index),
+                      ),
+                  ],
+                  onReorder: (oldIndex, newIndex) {
+                    setState(() {
+                      if (oldIndex < newIndex) {
+                        newIndex -= 1;
+                      }
+                      final int item = _items.removeAt(oldIndex);
+                      _items.insert(newIndex, item);
+                    });
+                  },
+                ),
               ],
-              onReorder: (oldIndex, newIndex) {
-                setState(() {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
-                  final int item = _items.removeAt(oldIndex);
-                  _items.insert(newIndex, item);
-                });
-              },
             ),
           ),
           Container(
