@@ -26,7 +26,8 @@ class _HomeState extends State<Home> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
+          SizedBox(
+            height: 200,
             child: ReorderableListView(
               children: [
                 for (int index = 0; index < _items.length; index += 1)
