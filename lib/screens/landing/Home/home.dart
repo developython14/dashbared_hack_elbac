@@ -13,6 +13,41 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Basic dialog title'),
+          content: const Text('A dialog is a type of modal window that\n'
+              'appears in front of app content to\n'
+              'provide critical information, or prompt\n'
+              'for a decision to be made.'),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Disable'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Enable'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var items = [
@@ -29,29 +64,35 @@ class _HomeState extends State<Home> {
         children: [
           SizedBox(
             height: 150,
-            child: Row(
+            child: ReorderableListView(
+              scrollDirection: Axis.horizontal,
               children: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-                ReorderableListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    for (int index = 0; index < _items.length; index += 1)
-                      storybutton(
-                        key: ValueKey(index),
-                      ),
-                  ],
-                  onReorder: (oldIndex, newIndex) {
-                    setState(() {
-                      if (oldIndex < newIndex) {
-                        newIndex -= 1;
-                      }
-                      final int item = _items.removeAt(oldIndex);
-                      _items.insert(newIndex, item);
-                    });
-                  },
-                ),
+                for (int index = 0; index < _items.length; index += 1)
+                  storybutton(
+                    key: ValueKey(index),
+                  ),
               ],
+              onReorder: (oldIndex, newIndex) {
+                setState(() {
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
+                  final int item = _items.removeAt(oldIndex);
+                  _items.insert(newIndex, item);
+                });
+              },
             ),
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    _dialogBuilder(context);
+                  },
+                  child: Text('إنشاء ستوري جديد')),
+              ElevatedButton(
+                  onPressed: () {}, child: Text('إضافة عنصر إلى القصص')),
+            ],
           ),
           Container(
             height: 300,
