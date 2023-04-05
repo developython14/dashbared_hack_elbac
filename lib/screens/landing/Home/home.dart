@@ -167,30 +167,13 @@ class _HomeState extends State<Home> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('تحرير القصص'),
+          title: const Text('cree un publicite'),
           content: Form(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              DropdownButton(
-                  hint: Text(
-                    'chose role',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  isExpanded: true,
-                  items: [
-                    DropdownMenuItem(
-                      child: Text('اختر القصص التي تريد تخصيصها '),
-                      value: 'expert',
-                    ),
-                    DropdownMenuItem(
-                      child: Text('freede'),
-                      value: 'user',
-                    )
-                  ],
-                  onChanged: (value) {}),
               TextFormField(
-                decoration: InputDecoration(hintText: 'اسم جديد ستوري'),
+                decoration: InputDecoration(hintText: 'Link of redirection'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -202,7 +185,7 @@ class _HomeState extends State<Home> {
               GestureDetector(
                 onTap: () async {
                   FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(allowMultiple: true);
+                      await FilePicker.platform.pickFiles();
 
                   if (result != null) {
                     setState(() {});
@@ -210,7 +193,7 @@ class _HomeState extends State<Home> {
                     // User canceled the picker
                   }
                 },
-                child: Text('انقر هنا لإضافة ملفات'),
+                child: Text('Put image that show in slide'),
               ),
             ],
           )),
@@ -219,7 +202,7 @@ class _HomeState extends State<Home> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('غلق'),
+              child: const Text('close'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -228,16 +211,7 @@ class _HomeState extends State<Home> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('إضافة '),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                  textStyle: Theme.of(context).textTheme.labelLarge,
-                  backgroundColor: Colors.red),
-              child: const Text('حذف هذه القصص '),
+              child: const Text('Confirm '),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -253,7 +227,7 @@ class _HomeState extends State<Home> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('تحرير القصص'),
+          title: const Text(' edit pub'),
           content: Form(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -266,7 +240,7 @@ class _HomeState extends State<Home> {
                   isExpanded: true,
                   items: [
                     DropdownMenuItem(
-                      child: Text('اختر القصص التي تريد تخصيصها '),
+                      child: Text('chose the pub'),
                       value: 'expert',
                     ),
                     DropdownMenuItem(
@@ -276,7 +250,8 @@ class _HomeState extends State<Home> {
                   ],
                   onChanged: (value) {}),
               TextFormField(
-                decoration: InputDecoration(hintText: 'اسم جديد ستوري'),
+                decoration:
+                    InputDecoration(hintText: 'New link of redirection'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -296,7 +271,7 @@ class _HomeState extends State<Home> {
                     // User canceled the picker
                   }
                 },
-                child: Text('انقر هنا لإضافة ملفات'),
+                child: Text('Put here the new Image'),
               ),
             ],
           )),
@@ -305,7 +280,7 @@ class _HomeState extends State<Home> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('غلق'),
+              child: const Text('close'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -314,7 +289,7 @@ class _HomeState extends State<Home> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('إضافة '),
+              child: const Text('confirm '),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -323,7 +298,7 @@ class _HomeState extends State<Home> {
               style: TextButton.styleFrom(
                   textStyle: Theme.of(context).textTheme.labelLarge,
                   backgroundColor: Colors.red),
-              child: const Text('حذف هذه القصص '),
+              child: const Text('remove this pub'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -417,26 +392,39 @@ class _HomeState extends State<Home> {
                   child: Text(' تحرير في الإعلان ')),
             ],
           ),
-          levels_componant(
-            hei: hei,
-            title: 'السنة الثالثة ثانوي ',
-            color: Color.fromARGB(255, 217, 72, 62),
-            abre: '3as',
-            path: '/filieres',
-          ),
-          levels_componant(
-            hei: hei,
-            title: 'السنة الثانية  ثانوي ',
-            color: Color.fromARGB(255, 210, 227, 24),
-            abre: '2as',
-            path: '/filieres',
-          ),
-          levels_componant(
-            hei: hei,
-            title: 'السنة الأولى   ثانوي ',
-            color: Color.fromARGB(255, 222, 46, 175),
-            abre: '1as',
-            path: '/filieres',
+          ReorderableListView(
+            children: [
+              levels_componant(
+                hei: hei,
+                title: 'السنة الثالثة ثانوي ',
+                color: Color.fromARGB(255, 217, 72, 62),
+                abre: '3as',
+                path: '/filieres',
+              ),
+              levels_componant(
+                hei: hei,
+                title: 'السنة الثانية  ثانوي ',
+                color: Color.fromARGB(255, 210, 227, 24),
+                abre: '2as',
+                path: '/filieres',
+              ),
+              levels_componant(
+                hei: hei,
+                title: 'السنة الأولى   ثانوي ',
+                color: Color.fromARGB(255, 222, 46, 175),
+                abre: '1as',
+                path: '/filieres',
+              )
+            ],
+            onReorder: (oldIndex, newIndex) {
+              setState(() {
+                if (oldIndex < newIndex) {
+                  newIndex -= 1;
+                }
+                final int item = _items.removeAt(oldIndex);
+                _items.insert(newIndex, item);
+              });
+            },
           )
         ],
       ),
