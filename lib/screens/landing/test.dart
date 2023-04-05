@@ -13,25 +13,31 @@ class _testState extends State<test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ReorderableListView(
-        scrollDirection: Axis.vertical,
+      body: Column(
         children: [
-          for (int index = 0; index < _items.length; index += 1)
-            ListTile(
-              key: Key('$index'),
-              tileColor: Colors.amber,
-              title: Text('Item ${_items[index]}'),
+          Text('free'),
+          Expanded(
+            child: ReorderableListView(
+              children: [
+                for (int index = 0; index < _items.length; index += 1)
+                  ListTile(
+                    key: Key('$index'),
+                    tileColor: Colors.amber,
+                    title: Text('Item ${_items[index]}'),
+                  ),
+              ],
+              onReorder: (oldIndex, newIndex) {
+                setState(() {
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
+                  final int item = _items.removeAt(oldIndex);
+                  _items.insert(newIndex, item);
+                });
+              },
             ),
+          ),
         ],
-        onReorder: (oldIndex, newIndex) {
-          setState(() {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
-            }
-            final int item = _items.removeAt(oldIndex);
-            _items.insert(newIndex, item);
-          });
-        },
       ),
     );
   }

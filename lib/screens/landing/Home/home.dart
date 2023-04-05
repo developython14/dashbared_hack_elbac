@@ -3,17 +3,23 @@ import 'package:dashboared_hakelbac/screens/landing/Home/componanats/levels.dart
 import 'package:dashboared_hakelbac/screens/landing/Home/componanats/story.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var items = [
       Image.network(
           'https://th.bing.com/th/id/OIP.ejJwy93WhLu6uCZ32Y8pCAHaDH?pid=ImgDet&rs=1'),
     ];
+    var _items = [1, 2, 3, 4, 5, 6];
     final hei = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
         child: Padding(
@@ -21,6 +27,27 @@ class Home extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Expanded(
+            child: ReorderableListView(
+              children: [
+                for (int index = 0; index < _items.length; index += 1)
+                  ListTile(
+                    key: Key('$index'),
+                    tileColor: Colors.amber,
+                    title: Text('Item ${_items[index]}'),
+                  ),
+              ],
+              onReorder: (oldIndex, newIndex) {
+                setState(() {
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
+                  final int item = _items.removeAt(oldIndex);
+                  _items.insert(newIndex, item);
+                });
+              },
+            ),
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
