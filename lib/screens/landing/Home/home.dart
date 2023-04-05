@@ -38,12 +38,10 @@ class _HomeState extends State<Home> {
               GestureDetector(
                 onTap: () async {
                   FilePickerResult? result =
-                      await FilePicker.platform.pickFiles();
+                      await FilePicker.platform.pickFiles(allowMultiple: true);
 
                   if (result != null) {
-                    setState(() {
-                      cv = File(result.files.single.path!);
-                    });
+                    setState(() {});
                   } else {
                     // User canceled the picker
                   }
