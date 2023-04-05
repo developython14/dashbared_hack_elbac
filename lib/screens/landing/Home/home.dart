@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   File? cv;
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> _dialogBuilder_add_stories(BuildContext context) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -24,6 +24,7 @@ class _HomeState extends State<Home> {
           title: const Text('إنشاء ستوري جديد'),
           content: Form(
               child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextFormField(
                 decoration: InputDecoration(hintText: 'اسم ستوري'),
@@ -46,7 +47,84 @@ class _HomeState extends State<Home> {
                     // User canceled the picker
                   }
                 },
-                child: Image.asset('assets/signup3.png'),
+                child: Text('انقر هنا لإضافة ملفات'),
+              ),
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('غلق'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('إضافة '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _dialogBuilder_add_files_to_Stories(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('تحرير القصص'),
+          content: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(hintText: 'اسم ستوري'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              DropdownButton(
+                  hint: Text(
+                    'chose role',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  isExpanded: true,
+                  items: [
+                    DropdownMenuItem(
+                      child: Text('free'),
+                      value: 'expert',
+                    ),
+                    DropdownMenuItem(
+                      child: Text('freede'),
+                      value: 'user',
+                    )
+                  ],
+                  onChanged: (value) {}),
+              GestureDetector(
+                onTap: () async {
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles(allowMultiple: true);
+
+                  if (result != null) {
+                    setState(() {});
+                  } else {
+                    // User canceled the picker
+                  }
+                },
+                child: Text('انقر هنا لإضافة ملفات'),
               ),
             ],
           )),
@@ -114,11 +192,14 @@ class _HomeState extends State<Home> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    _dialogBuilder(context);
+                    _dialogBuilder_add_stories(context);
                   },
                   child: Text('إنشاء ستوري جديد')),
               ElevatedButton(
-                  onPressed: () {}, child: Text('إضافة عنصر إلى القصص')),
+                  onPressed: () {
+                    _dialogBuilder_add_files_to_Stories(context);
+                  },
+                  child: Text('إضافة عنصر إلى القصص')),
             ],
           ),
           Container(
