@@ -18,17 +18,27 @@ class _HomeState extends State<Home> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Basic dialog title'),
-          content: const Text('A dialog is a type of modal window that\n'
-              'appears in front of app content to\n'
-              'provide critical information, or prompt\n'
-              'for a decision to be made.'),
+          title: const Text('إنشاء ستوري جديد'),
+          content: Form(
+              child: Column(
+            children: [
+              TextFormField(
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          )),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Disable'),
+              child: const Text('غلق'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -37,7 +47,7 @@ class _HomeState extends State<Home> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Enable'),
+              child: const Text('إضافة '),
               onPressed: () {
                 Navigator.of(context).pop();
               },
