@@ -21,8 +21,7 @@ class _HomeState extends State<Home> {
     ];
     var _items = [1, 2, 3, 4, 5, 6];
     final hei = MediaQuery.of(context).size.height;
-    return SingleChildScrollView(
-        child: Padding(
+    return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,10 +30,8 @@ class _HomeState extends State<Home> {
             child: ReorderableListView(
               children: [
                 for (int index = 0; index < _items.length; index += 1)
-                  ListTile(
-                    key: Key('$index'),
-                    tileColor: Colors.amber,
-                    title: Text('Item ${_items[index]}'),
+                  storybutton(
+                    key: ValueKey(index),
                   ),
               ],
               onReorder: (oldIndex, newIndex) {
@@ -48,37 +45,26 @@ class _HomeState extends State<Home> {
               },
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                storybutton(),
-                storybutton(),
-                storybutton(),
-                storybutton(),
-                storybutton(),
-                storybutton(),
-                storybutton()
-              ],
-            ),
+          Container(
+            height: 300,
+            child: CarouselSlider(
+                items: items,
+                options: CarouselOptions(
+                  height: 400,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  scrollDirection: Axis.horizontal,
+                )),
           ),
-          CarouselSlider(
-              items: items,
-              options: CarouselOptions(
-                height: 400,
-                aspectRatio: 16 / 9,
-                viewportFraction: 0.8,
-                initialPage: 0,
-                enableInfiniteScroll: true,
-                reverse: false,
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                enlargeFactor: 0.3,
-                scrollDirection: Axis.horizontal,
-              )),
           levels_componant(
             hei: hei,
             title: 'السنة الثالثة ثانوي ',
@@ -102,6 +88,6 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
-    ));
+    );
   }
 }
