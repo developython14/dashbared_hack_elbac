@@ -19,40 +19,49 @@ class _filliersState extends State<filliers> {
         body: SingleChildScrollView(
             child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            child: ReorderableListView(
-              children: [
-                levels_componant(
-                  hei: hei,
-                  title: 'علوم تجريبية',
-                  color: Colors.green,
-                  abre: '3ass',
-                  path: '/modules',
+          child: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: ReorderableListView(
+                  children: [
+                    levels_componant(
+                      key: ValueKey('free'),
+                      hei: hei,
+                      title: 'علوم تجريبية',
+                      color: Colors.green,
+                      abre: '3ass',
+                      path: '/modules',
+                    ),
+                    levels_componant(
+                      key: ValueKey('erfe'),
+                      hei: hei,
+                      title: 'علوم تجريبية',
+                      color: Colors.green,
+                      abre: '3ass',
+                      path: '/modules',
+                    ),
+                    levels_componant(
+                      key: ValueKey('free23'),
+                      hei: hei,
+                      title: 'علوم تجريبية',
+                      color: Colors.green,
+                      abre: '3ass',
+                      path: '/modules',
+                    )
+                  ],
+                  onReorder: (oldIndex, newIndex) {},
                 ),
-                levels_componant(
-                  hei: hei,
-                  title: 'علوم تجريبية',
-                  color: Colors.green,
-                  abre: '3ass',
-                  path: '/modules',
-                ),
-                levels_componant(
-                  hei: hei,
-                  title: 'علوم تجريبية',
-                  color: Colors.green,
-                  abre: '3ass',
-                  path: '/modules',
-                )
-              ],
-              onReorder: (oldIndex, newIndex) {
-                setState(() {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
-                });
-              },
-            ),
+              ),
+              Row(
+                children: [
+                  ElevatedButton(
+                      onPressed: () {}, child: Text('edit filliere')),
+                  ElevatedButton(
+                      onPressed: () {}, child: Text('add new filliere')),
+                ],
+              ),
+            ],
           ),
         )),
       )),

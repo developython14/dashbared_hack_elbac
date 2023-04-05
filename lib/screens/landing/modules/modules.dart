@@ -14,27 +14,38 @@ class modules extends StatelessWidget {
         body: SingleChildScrollView(
             child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                module_componant(
-                  hei: hei,
-                  title: 'العلوم الفيزيائية',
-                  abre:
-                      'https://2as.ency-education.com/uploads/1/0/9/0/1090282/icon-new-english_orig.png',
-                  path: '/profs',
+          child: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: ReorderableListView(
+                  children: [
+                    module_componant(
+                      hei: hei,
+                      title: 'العلوم الفيزيائية',
+                      abre:
+                          'https://2as.ency-education.com/uploads/1/0/9/0/1090282/icon-new-english_orig.png',
+                      path: '/profs',
+                    ),
+                    module_componant(
+                      hei: hei,
+                      title: ' العلوم الطبيعية ',
+                      abre:
+                          'https://2as.ency-education.com/uploads/1/0/9/0/1090282/icon-new-sciences_orig.png',
+                      path: '/profs',
+                    ),
+                  ],
+                  onReorder: (oldIndex, newIndex) {},
                 ),
-                module_componant(
-                  hei: hei,
-                  title: ' العلوم الطبيعية ',
-                  abre:
-                      'https://2as.ency-education.com/uploads/1/0/9/0/1090282/icon-new-sciences_orig.png',
-                  path: '/profs',
-                ),
-              ],
-            ),
+              ),
+              Row(
+                children: [
+                  ElevatedButton(onPressed: () {}, child: Text('edit modules')),
+                  ElevatedButton(
+                      onPressed: () {}, child: Text('add new modules')),
+                ],
+              ),
+            ],
           ),
         )),
       )),
