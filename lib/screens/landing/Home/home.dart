@@ -21,14 +21,16 @@ class _HomeState extends State<Home> {
     ];
     var _items = [1, 2, 3, 4, 5, 6];
     final hei = MediaQuery.of(context).size.height;
-    return Padding(
+    return SingleChildScrollView(
+        child: Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 200,
+            height: 300,
             child: ReorderableListView(
+              scrollDirection: Axis.horizontal,
               children: [
                 for (int index = 0; index < _items.length; index += 1)
                   storybutton(
@@ -89,6 +91,6 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
-    );
+    ));
   }
 }
