@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/componanats/levels.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/componanats/story.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 
 class Home extends StatefulWidget {
   const Home({
@@ -13,6 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  File? cv;
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -23,6 +26,7 @@ class _HomeState extends State<Home> {
               child: Column(
             children: [
               TextFormField(
+                decoration: InputDecoration(hintText: 'اسم ستوري'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -30,6 +34,21 @@ class _HomeState extends State<Home> {
                   }
                   return null;
                 },
+              ),
+              GestureDetector(
+                onTap: () async {
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles();
+
+                  if (result != null) {
+                    setState(() {
+                      cv = File(result.files.single.path!);
+                    });
+                  } else {
+                    // User canceled the picker
+                  }
+                },
+                child: Image.asset('assets/signup3.png'),
               ),
             ],
           )),
