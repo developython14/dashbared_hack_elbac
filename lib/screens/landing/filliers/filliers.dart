@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/componanats/levels.dart';
 
-class filliers extends StatelessWidget {
+class filliers extends StatefulWidget {
   const filliers({Key? key}) : super(key: key);
 
+  @override
+  State<filliers> createState() => _filliersState();
+}
+
+class _filliersState extends State<filliers> {
   @override
   Widget build(BuildContext context) {
     final hei = MediaQuery.of(context).size.height;
@@ -16,8 +21,7 @@ class filliers extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Container(
             height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: ReorderableListView(
               children: [
                 levels_componant(
                   hei: hei,
@@ -41,6 +45,13 @@ class filliers extends StatelessWidget {
                   path: '/modules',
                 )
               ],
+              onReorder: (oldIndex, newIndex) {
+                setState(() {
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
+                });
+              },
             ),
           ),
         )),

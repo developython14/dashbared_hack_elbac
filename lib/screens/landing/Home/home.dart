@@ -309,6 +309,146 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Future<void> _dialogBuilder_cree_un_niveau(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('cree un niveau'),
+          content: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(hintText: 'title'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'abreveiation'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Confirm '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _dialogBuilder_edit_niveau(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(' edit Niveau'),
+          content: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              DropdownButton(
+                  hint: Text(
+                    'chose niveau',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  isExpanded: true,
+                  items: [
+                    DropdownMenuItem(
+                      child: Text('chose the pub'),
+                      value: 'expert',
+                    ),
+                    DropdownMenuItem(
+                      child: Text('freede'),
+                      value: 'user',
+                    )
+                  ],
+                  onChanged: (value) {}),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'New Name'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'New arev'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('confirm '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                  backgroundColor: Colors.red),
+              child: const Text('remove this pub'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var items = [
@@ -392,40 +532,60 @@ class _HomeState extends State<Home> {
                   child: Text(' تحرير في الإعلان ')),
             ],
           ),
-          ReorderableListView(
+          SizedBox(
+            height: 800,
+            child: ReorderableListView(
+              children: [
+                levels_componant(
+                  key: ValueKey('value'),
+                  hei: hei,
+                  title: 'السنة الثالثة ثانوي ',
+                  color: Color.fromARGB(255, 217, 72, 62),
+                  abre: '3as',
+                  path: '/filieres',
+                ),
+                levels_componant(
+                  key: ValueKey('free'),
+                  hei: hei,
+                  title: 'السنة الثانية  ثانوي ',
+                  color: Color.fromARGB(255, 210, 227, 24),
+                  abre: '2as',
+                  path: '/filieres',
+                ),
+                levels_componant(
+                  key: ValueKey('fre4e'),
+                  hei: hei,
+                  title: 'السنة الأولى   ثانوي ',
+                  color: Color.fromARGB(255, 222, 46, 175),
+                  abre: '1as',
+                  path: '/filieres',
+                )
+              ],
+              onReorder: (oldIndex, newIndex) {
+                setState(() {
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
+                  final int item = _items.removeAt(oldIndex);
+                  _items.insert(newIndex, item);
+                });
+              },
+            ),
+          ),
+          Row(
             children: [
-              levels_componant(
-                hei: hei,
-                title: 'السنة الثالثة ثانوي ',
-                color: Color.fromARGB(255, 217, 72, 62),
-                abre: '3as',
-                path: '/filieres',
-              ),
-              levels_componant(
-                hei: hei,
-                title: 'السنة الثانية  ثانوي ',
-                color: Color.fromARGB(255, 210, 227, 24),
-                abre: '2as',
-                path: '/filieres',
-              ),
-              levels_componant(
-                hei: hei,
-                title: 'السنة الأولى   ثانوي ',
-                color: Color.fromARGB(255, 222, 46, 175),
-                abre: '1as',
-                path: '/filieres',
-              )
+              ElevatedButton(
+                  onPressed: () {
+                    _dialogBuilder_cree_un_niveau(context);
+                  },
+                  child: Text('إنشاء مستوى  جديد')),
+              ElevatedButton(
+                  onPressed: () {
+                    _dialogBuilder_edit_niveau(context);
+                  },
+                  child: Text('مخصصة لمستوى')),
             ],
-            onReorder: (oldIndex, newIndex) {
-              setState(() {
-                if (oldIndex < newIndex) {
-                  newIndex -= 1;
-                }
-                final int item = _items.removeAt(oldIndex);
-                _items.insert(newIndex, item);
-              });
-            },
-          )
+          ),
         ],
       ),
     ));
