@@ -147,6 +147,101 @@ class _HomeState extends State<Home> {
                 Navigator.of(context).pop();
               },
             ),
+            TextButton(
+              style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                  backgroundColor: Colors.red),
+              child: const Text('حذف هذه القصص '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _dialogBuilder_adpublicite(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('تحرير القصص'),
+          content: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              DropdownButton(
+                  hint: Text(
+                    'chose role',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  isExpanded: true,
+                  items: [
+                    DropdownMenuItem(
+                      child: Text('اختر القصص التي تريد تخصيصها '),
+                      value: 'expert',
+                    ),
+                    DropdownMenuItem(
+                      child: Text('freede'),
+                      value: 'user',
+                    )
+                  ],
+                  onChanged: (value) {}),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'اسم جديد ستوري'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              GestureDetector(
+                onTap: () async {
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles(allowMultiple: true);
+
+                  if (result != null) {
+                    setState(() {});
+                  } else {
+                    // User canceled the picker
+                  }
+                },
+                child: Text('انقر هنا لإضافة ملفات'),
+              ),
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('غلق'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('إضافة '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                  backgroundColor: Colors.red),
+              child: const Text('حذف هذه القصص '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ],
         );
       },
@@ -221,6 +316,20 @@ class _HomeState extends State<Home> {
                   enlargeFactor: 0.3,
                   scrollDirection: Axis.horizontal,
                 )),
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    _dialogBuilder_add_stories(context);
+                  },
+                  child: Text('إضافة إعلانات جديدة')),
+              ElevatedButton(
+                  onPressed: () {
+                    _dialogBuilder_add_files_to_Stories(context);
+                  },
+                  child: Text('إضافة عنصر إلى القصص')),
+            ],
           ),
           levels_componant(
             hei: hei,
