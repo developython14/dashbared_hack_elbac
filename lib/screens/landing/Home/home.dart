@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 300,
+            height: 150,
             child: ReorderableListView(
               scrollDirection: Axis.horizontal,
               children: [
