@@ -49,7 +49,6 @@ dependencies:
   accordion: ^2.5.1
   appinio_video_player: ^1.2.0
   pod_player: ^0.1.0
-  drag_and_drop_lists: ^0.2.1
 
 dev_dependencies:
   flutter_test:
