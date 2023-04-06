@@ -118,34 +118,28 @@ class _DataPageState extends State<DataPage> {
     /// set headers
     _headers = [
       DatatableHeader(
-          text: "ID",
-          value: "id",
-          show: true,
-          sortable: true,
-          textAlign: TextAlign.center),
-      DatatableHeader(
-          text: "Name",
-          value: "name",
+          text: "username",
+          value: "username",
           show: true,
           flex: 2,
           sortable: true,
           editable: true,
           textAlign: TextAlign.left),
       DatatableHeader(
-          text: "SKU",
-          value: "sku",
+          text: "opinion",
+          value: "opinion",
           show: true,
           sortable: true,
           textAlign: TextAlign.center),
       DatatableHeader(
-          text: "Category",
-          value: "category",
+          text: "date",
+          value: "date",
           show: true,
           sortable: true,
           textAlign: TextAlign.left),
       DatatableHeader(
-          text: "Price",
-          value: "price",
+          text: "actions",
+          value: "actions",
           show: true,
           sortable: true,
           textAlign: TextAlign.left),
@@ -155,40 +149,6 @@ class _DataPageState extends State<DataPage> {
           show: true,
           sortable: true,
           textAlign: TextAlign.left),
-      DatatableHeader(
-          text: "In Stock",
-          value: "in_stock",
-          show: true,
-          sortable: true,
-          textAlign: TextAlign.left),
-      DatatableHeader(
-          text: "Alert",
-          value: "alert",
-          show: true,
-          sortable: true,
-          textAlign: TextAlign.left),
-      DatatableHeader(
-          text: "Received",
-          value: "received",
-          show: true,
-          sortable: false,
-          sourceBuilder: (value, row) {
-            List list = List.from(value);
-            return Container(
-              child: Column(
-                children: [
-                  Container(
-                    width: 85,
-                    child: LinearProgressIndicator(
-                      value: list.first / list.last,
-                    ),
-                  ),
-                  Text("${list.first} of ${list.last}")
-                ],
-              ),
-            );
-          },
-          textAlign: TextAlign.center),
     ];
 
     _initializeData();
@@ -203,23 +163,7 @@ class _DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("RESPONSIVE DATA TABLE"),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("home"),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.storage),
-              title: Text("data"),
-              onTap: () {},
-            )
-          ],
-        ),
+        title: Text("accepted opinion to show in the app"),
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -239,8 +183,16 @@ class _DataPageState extends State<DataPage> {
                 child: ResponsiveDatatable(
                   title: TextButton.icon(
                     onPressed: () => {},
-                    icon: Icon(Icons.add),
-                    label: Text("new item"),
+                    icon: Icon(
+                      Icons.remove,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Remove All",
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
                   reponseScreenSizes: [ScreenSize.xs],
                   actions: [
