@@ -137,12 +137,11 @@ class _DataPageState extends State<DataPage> {
           value: "actions",
           show: true,
           sortable: true,
-          textAlign: TextAlign.left),
-      DatatableHeader(
-          text: "Margin",
-          value: "margin",
-          show: true,
-          sortable: true,
+          sourceBuilder: ((value, row) {
+            return Row(
+              children: [ElevatedButton(onPressed: () {}, child: Text('data'))],
+            );
+          }),
           textAlign: TextAlign.left),
     ];
 
