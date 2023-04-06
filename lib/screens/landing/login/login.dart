@@ -8,6 +8,8 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  String username = 'Choose Role';
+  String password = 'Choose Role';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,6 +41,11 @@ class _MyLoginState extends State<MyLogin> {
                       child: Column(
                         children: [
                           TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                username = value;
+                              });
+                            },
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -52,6 +59,11 @@ class _MyLoginState extends State<MyLogin> {
                             height: 30,
                           ),
                           TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                password = value;
+                              });
+                            },
                             style: TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(

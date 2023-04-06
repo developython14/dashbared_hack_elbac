@@ -2,13 +2,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:responsive_table/responsive_table.dart';
 
-class DataPage extends StatefulWidget {
-  DataPage({Key? key}) : super(key: key);
+class accepted_opinion extends StatefulWidget {
+  accepted_opinion({Key? key}) : super(key: key);
   @override
-  _DataPageState createState() => _DataPageState();
+  _accepted_opinionState createState() => _accepted_opinionState();
 }
 
-class _DataPageState extends State<DataPage> {
+class _accepted_opinionState extends State<accepted_opinion> {
   late List<DatatableHeader> _headers;
 
   List<int> _perPages = [10, 20, 50, 100];
@@ -40,7 +40,7 @@ class _DataPageState extends State<DataPage> {
     // ignore: unused_local_variable
     for (var data in source) {
       temps.add({
-        "username": "$i\000$i",
+        "username": "username$i\000$i",
         "opinion": "is it best prcatice to prepare my bac in 2023",
         "date": "20/04/1998",
         "in_stock": "${i}0",
@@ -139,7 +139,14 @@ class _DataPageState extends State<DataPage> {
           sortable: true,
           sourceBuilder: ((value, row) {
             return Row(
-              children: [ElevatedButton(onPressed: () {}, child: Text('data'))],
+              children: [
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Reject',
+                      style: TextStyle(color: Colors.red),
+                    )),
+              ],
             );
           }),
           textAlign: TextAlign.left),
