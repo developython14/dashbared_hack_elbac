@@ -9,6 +9,12 @@ class opinion_category extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Column(
       children: [
+        Card(
+          child: ListTile(
+            leading: FlutterLogo(),
+            title: Text('One-line with leading widget'),
+          ),
+        ),
         ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, '/accepted_opinion');
