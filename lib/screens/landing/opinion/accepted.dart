@@ -40,15 +40,10 @@ class _DataPageState extends State<DataPage> {
     // ignore: unused_local_variable
     for (var data in source) {
       temps.add({
-        "id": i,
-        "sku": "$i\000$i",
-        "name": "Product $i",
-        "category": "Category-$i",
-        "price": i * 10.00,
-        "cost": "20.00",
-        "margin": "${i}0.20",
+        "username": "$i\000$i",
+        "opinion": "is it best prcatice to prepare my bac in 2023",
+        "date": "20/04/1998",
         "in_stock": "${i}0",
-        "alert": "5",
         "received": [i + 20, 150]
       });
       i++;
@@ -232,12 +227,6 @@ class _DataPageState extends State<DataPage> {
                   selecteds: _selecteds,
                   showSelect: _showSelect,
                   autoHeight: false,
-                  dropContainer: (data) {
-                    if (int.tryParse(data['id'].toString())!.isEven) {
-                      return Text("is Even");
-                    }
-                    return _DropDownContainer(data: data);
-                  },
                   onChangedRow: (value, header) {
                     /// print(value);
                     /// print(header);
@@ -246,9 +235,7 @@ class _DataPageState extends State<DataPage> {
                     /// print(value);
                     /// print(header);
                   },
-                  onTabRow: (data) {
-                    print(data);
-                  },
+                  onTabRow: (data) {},
                   onSort: (value) {
                     setState(() => _isLoading = true);
 
@@ -363,40 +350,6 @@ class _DataPageState extends State<DataPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _initializeData,
         child: Icon(Icons.refresh_sharp),
-      ),
-    );
-  }
-}
-
-class _DropDownContainer extends StatelessWidget {
-  final Map<String, dynamic> data;
-  const _DropDownContainer({Key? key, required this.data}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> _children = data.entries.map<Widget>((entry) {
-      Widget w = Row(
-        children: [
-          Text(entry.key.toString()),
-          Spacer(),
-          Text(entry.value.toString()),
-        ],
-      );
-      return w;
-    }).toList();
-
-    return Container(
-      /// height: 100,
-      child: Column(
-        /// children: [
-        ///   Expanded(
-        ///       child: Container(
-        ///     color: Colors.red,
-        ///     height: 50,
-        ///   )),
-
-        /// ],
-        children: _children,
       ),
     );
   }
