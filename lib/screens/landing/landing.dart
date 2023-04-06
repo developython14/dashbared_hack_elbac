@@ -1,4 +1,4 @@
-import 'package:dashboared_hakelbac/screens/landing/opinion/category_faq.dart';
+import 'package:dashboared_hakelbac/screens/landing/opinion/category_option.dart';
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/home.dart';
