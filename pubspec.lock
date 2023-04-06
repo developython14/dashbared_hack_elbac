@@ -9,6 +9,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.1"
+  adaptivex:
+    dependency: transitive
+    description:
+      name: adaptivex
+      sha256: "3bcf399c6e639e9f065c8502cfdaec1b25fa79f77a8f27e14819e36e85b7075d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1+6"
+  ansicolor:
+    dependency: transitive
+    description:
+      name: ansicolor
+      sha256: "607f8fa9786f392043f169898923e6c59b4518242b68b8862eb8a8b7d9c30b4a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   appinio_video_player:
     dependency: "direct main"
     description:
@@ -129,14 +145,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  data_table_2:
-    dependency: "direct main"
-    description:
-      name: data_table_2
-      sha256: daea1a67128e88b6b5537ee0752c67ecdc2fba9cd9303b3554361c648549618d
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.2"
   device_info_plus:
     dependency: "direct main"
     description:
@@ -456,6 +464,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.2"
+  printx:
+    dependency: transitive
+    description:
+      name: printx
+      sha256: "9216a2deb51e6524c9da569e5122b2fbd1996f15f4935ed627674b79bed794c2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   process:
     dependency: transitive
     description:
@@ -464,6 +480,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  responsive_table:
+    dependency: "direct main"
+    description:
+      name: responsive_table
+      sha256: a1dae0478e5adee5ceaabb187e57ce56c671a7827ad70f0933006563ee87e51a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0+2"
   rxdart:
     dependency: transitive
     description:
@@ -783,4 +807,4 @@ packages:
     version: "1.12.4"
 sdks:
   dart: ">=2.19.5 <3.0.0"
-  flutter: ">=3.7.0"
+  flutter: ">=3.3.0"

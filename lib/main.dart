@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
         '/cours': (context) => Cours(),
         '/faq': (context) => faq(),
         '/requested_opinion': (context) => request_opinion(),
-        '/accepted_opinion': (context) => accepted_opnion(),
+        '/accepted_opinion': (context) => DataPage(),
         '/change_photo': (context) => change_photo(),
       },
     );
