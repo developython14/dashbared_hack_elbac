@@ -1,3 +1,5 @@
+import 'package:dashboared_hakelbac/screens/landing/opinion/accepted.dart';
+import 'package:dashboared_hakelbac/screens/landing/opinion/requested.dart';
 import 'package:flutter/material.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/componanats/story.dart';
 import 'package:dashboared_hakelbac/screens/landing/change_photo/change_photo.dart';
@@ -66,6 +68,8 @@ class _MyAppState extends State<MyApp> {
         '/profs': (context) => profs(),
         '/cours': (context) => Cours(),
         '/faq': (context) => faq(),
+        '/requested_opinion': (context) => request_opinion(),
+        '/accepted_opinion': (context) => accepted_opnion(),
         '/change_photo': (context) => change_photo(),
       },
     );
