@@ -11,20 +11,28 @@ class opinion_category extends StatelessWidget {
       children: [
         Card(
           child: ListTile(
-            leading: FlutterLogo(),
-            title: Text('One-line with leading widget'),
-          ),
-        ),
-        ElevatedButton(
-            onPressed: () {
+            leading: Icon(
+              Icons.verified,
+              color: Colors.green,
+            ),
+            title: Text('accepted optimion'),
+            onTap: () {
               Navigator.pushNamed(context, '/accepted_opinion');
             },
-            child: Text('accepted optimion')),
-        ElevatedButton(
-            onPressed: () {
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: Icon(
+              Icons.verified,
+              color: Colors.red,
+            ),
+            title: Text('pending optimion'),
+            onTap: () {
               Navigator.pushNamed(context, '/requested_opinion');
             },
-            child: Text('pending faq'))
+          ),
+        ),
       ],
     );
   }
