@@ -1,3 +1,4 @@
+import 'package:dashboared_hakelbac/screens/landing/opinion/category_faq.dart';
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/home.dart';
@@ -16,12 +17,7 @@ class _LandingState extends State<Landing> {
   int selected_index = 0;
   String host_image = '';
 
-  List widgets = [
-    contatc(),
-    Home(),
-    payment(),
-    comments(),
-  ];
+  List widgets = [contatc(), Home(), payment(), opinion_category()];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
