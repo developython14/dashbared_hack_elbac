@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bilal_dashboared',
+      title: 'Bilal_dashboared_',
       theme: ThemeData(
           // This is the theme of your application.
           //
