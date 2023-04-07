@@ -34,7 +34,8 @@ class payment extends StatelessWidget {
                                 ))));
                   }),
                   leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/three.jpg')),
+                      backgroundImage: NetworkImage(
+                          'https://hakelbac.com/uploads//1663192164422-hakelbac-received_1464983610680964.jpeg')),
                   title: Text('00799999001486730070'),
                 )),
                 Text(
@@ -55,15 +56,18 @@ class payment extends StatelessWidget {
                             ))));
                   }),
                   leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/barid.png')),
+                      backgroundImage: NetworkImage(
+                          'https://hakelbac.com/uploads//1663192146688-hakelbac-received_1092412781474589.jpeg')),
                   title: Text('001486730070'),
                 )),
                 Text(
                   'اتبع الخطوات الموجودة في الصور',
                   style: TextStyle(fontSize: 18),
                 ),
-                Image.asset('assets/one.jpg'),
-                Image.asset('assets/two.jpg')
+                Image.network(
+                    'https://hakelbac.com/uploads//1663192164422-hakelbac-received_1464983610680964.jpeg'),
+                Image.network(
+                    'https://hakelbac.com/uploads//1663192146688-hakelbac-received_1092412781474589.jpeg')
               ],
             ),
           ),

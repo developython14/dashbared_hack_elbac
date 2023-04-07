@@ -613,14 +613,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  upload_largest_files:
-    dependency: "direct main"
-    description:
-      name: upload_largest_files
-      sha256: b6ac9d3541c0f2655205fb34a05a137323677979bcb58d1f106c535a031cf934
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
   url_launcher:
     dependency: "direct main"
     description:
