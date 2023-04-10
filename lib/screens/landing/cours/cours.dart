@@ -42,12 +42,6 @@ class _CoursState extends State<Cours> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('حمل ملف الملخص الشامل من هنا')),
-                ),
                 chaipte(headerStyle: _headerStyle),
               ],
             ),
@@ -87,28 +81,34 @@ class chaipte extends StatelessWidget {
           headerBackgroundColorOpened: Colors.black,
           header: Text('تعيين كمية المادة عن طريق قياس الناقلية',
               style: _headerStyle),
-          content: ReorderableListView(
-            onReorder: (oldIndex, newIndex) {},
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.play_circle_filled),
-                  Text('درس شامل الجزء1')
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.play_circle_filled),
-                  Text('درس شامل الجزء1')
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.play_circle_filled),
-                  Text('درس شامل الجزء1')
-                ],
-              ),
-            ],
+          content: SizedBox(
+            height: 200,
+            child: ReorderableListView(
+              onReorder: (oldIndex, newIndex) {},
+              children: [
+                Row(
+                  key: ValueKey('free'),
+                  children: [
+                    Icon(Icons.play_circle_filled),
+                    Text('درس شامل الجزء1')
+                  ],
+                ),
+                Row(
+                  key: ValueKey('free34'),
+                  children: [
+                    Icon(Icons.play_circle_filled),
+                    Text('درس شامل الجزء1')
+                  ],
+                ),
+                Row(
+                  key: ValueKey('fre3333e'),
+                  children: [
+                    Icon(Icons.play_circle_filled),
+                    Text('درس شامل الجزء1')
+                  ],
+                ),
+              ],
+            ),
           ),
           contentHorizontalPadding: 1,
           contentBorderWidth: 1,
