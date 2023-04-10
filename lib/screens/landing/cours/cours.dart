@@ -41,7 +41,7 @@ class _CoursState extends State<Cours> {
         child: Scaffold(
           body: SingleChildScrollView(
             child: SizedBox(
-              height: 300,
+              height: 600,
               child: ReorderableListView(
                 children: [
                   chaipte(key: ValueKey('fr4ee'), headerStyle: _headerStyle),
@@ -68,6 +68,56 @@ class chaipte extends StatelessWidget {
         super(key: key);
 
   final TextStyle _headerStyle;
+  Future<void> _dialogBuilder_show_students(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('إنشاء ستوري جديد'),
+          content: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(hintText: 'اسم ستوري'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              GestureDetector(
+                onTap: () async {},
+                child: Text('انقر هنا لإضافة ملفات'),
+              ),
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('غلق'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('إضافة '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +134,7 @@ class chaipte extends StatelessWidget {
       children: [
         AccordionSection(
           leftIcon: const Icon(Icons.insights_rounded, color: Colors.white),
-          headerBackgroundColor: Colors.red,
+          headerBackgroundColor: Colors.blue,
           headerBackgroundColorOpened: Colors.black,
           header: Row(
             children: [
@@ -99,6 +149,14 @@ class chaipte extends StatelessWidget {
                   icon: Icon(
                     Icons.remove_circle_outline,
                     color: Colors.red,
+                  )),
+              IconButton(
+                  onPressed: () {
+                    _dialogBuilder_show_students(context);
+                  },
+                  icon: Icon(
+                    Icons.school_outlined,
+                    color: Color.fromARGB(255, 2, 2, 2),
                   )),
               Text('تعيين كمية المادة عن طريق قياس الناقلية',
                   style: _headerStyle),
