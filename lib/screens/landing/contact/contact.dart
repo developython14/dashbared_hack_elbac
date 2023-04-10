@@ -60,24 +60,8 @@ class contatc extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('الموقع الإلكتروني'),
-                      Card(
-                          child: ListTile(
-                        onTap: () {
-                          _launchUrl_url(
-                              '', 'https://github.com/developython14');
-                        },
-                        leading: Icon(Icons.web),
-                        title: Text('RightServices.com'),
-                        trailing: Icon(Icons.arrow_forward_ios),
-                      )),
-                    ],
-                  ),
-                ),
+                contact_tile(),
+                contact_tile(),
                 Text('الموقع الإلكتروني'),
                 Card(
                     child: ListTile(
@@ -150,6 +134,45 @@ class contatc extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class contact_tile extends StatelessWidget {
+  contact_tile({
+    this.title = '',
+    this.icon = '',
+    this.url_to_show = '',
+    this.url_type = '',
+    this.url = '',
+    super.key,
+  });
+  String title;
+  String icon;
+  String url_to_show;
+  String url_type;
+  String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title),
+          Card(
+              child: ListTile(
+            onTap: () {
+              _launchUrl_url(url_type, url);
+            },
+            leading: Icon(Icons.web),
+            title: Text(url_to_show),
+            trailing: CircleAvatar(
+              backgroundImage: NetworkImage(icon),
+            ),
+          )),
+        ],
       ),
     );
   }
