@@ -13,7 +13,20 @@ class _adminState extends State<admin> {
     return Scaffold(
       body: SafeArea(
           child: Column(
-        children: [Text('data')],
+        children: [
+          Card(
+            child: ListTile(
+              leading: Icon(
+                Icons.verified,
+                color: Colors.green,
+              ),
+              title: Text('Students'),
+              onTap: () {
+                Navigator.pushNamed(context, '/accepted_opinion');
+              },
+            ),
+          ),
+        ],
       )),
     );
   }
