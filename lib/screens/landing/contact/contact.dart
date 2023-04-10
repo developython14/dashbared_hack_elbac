@@ -128,6 +128,7 @@ class _contatcState extends State<contatc> {
                       onReorder: (oldIndex, newIndex) {},
                       children: [
                         contact_tile(
+                          key: ValueKey('fre'),
                           title: 'الموقع الإلكتروني ',
                           icon:
                               'https://cdn-icons-png.flaticon.com/512/556/556813.png',
@@ -136,6 +137,7 @@ class _contatcState extends State<contatc> {
                           url_type: '',
                         ),
                         contact_tile(
+                          key: ValueKey('feere'),
                           title: 'البريد الإلكتروني',
                           icon:
                               'https://cdn-icons-png.flaticon.com/512/556/556813.png',
@@ -144,6 +146,7 @@ class _contatcState extends State<contatc> {
                           url_type: 'mailto:',
                         ),
                         contact_tile(
+                          key: ValueKey('freeee'),
                           title: 'رقم الهاتف',
                           icon:
                               'https://cdn-icons-png.flaticon.com/512/556/556813.png',
@@ -152,6 +155,7 @@ class _contatcState extends State<contatc> {
                           url_type: 'tel:',
                         ),
                         contact_tile(
+                          key: ValueKey('fre23'),
                           title: 'الرسائل القصيرة',
                           icon:
                               'https://cdn-icons-png.flaticon.com/512/556/556813.png',
@@ -160,6 +164,7 @@ class _contatcState extends State<contatc> {
                           url_type: 'sms:',
                         ),
                         contact_tile(
+                          key: ValueKey('fr33e'),
                           title: 'إنستغرام',
                           icon:
                               'https://th.bing.com/th/id/R.26d9974a1feec9905a4e0d5e5ddf8db6?rik=ycoXFwG5Udz08A&pid=ImgRaw&r=0',
