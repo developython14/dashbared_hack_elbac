@@ -162,14 +162,14 @@ class _list_studentsState extends State<list_students> {
                 IconButton(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.remove_circle,
-                      color: Colors.red,
+                      Icons.wallet,
+                      color: Colors.green,
                     )),
                 IconButton(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.remove_circle,
-                      color: Colors.red,
+                      Icons.reset_tv,
+                      color: Colors.blue,
                     )),
               ],
             );
