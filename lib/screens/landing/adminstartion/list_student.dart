@@ -207,18 +207,35 @@ class _list_studentsState extends State<list_students> {
                 shadowColor: Colors.black,
                 clipBehavior: Clip.none,
                 child: ResponsiveDatatable(
-                  title: TextButton.icon(
-                    onPressed: () => {},
-                    icon: Icon(
-                      Icons.remove,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "Remove All",
-                      style: TextStyle(
-                        color: Colors.red,
+                  title: Row(
+                    children: [
+                      TextButton.icon(
+                        onPressed: () => {},
+                        icon: Icon(
+                          Icons.remove,
+                          color: Colors.red,
+                        ),
+                        label: Text(
+                          "Remove All",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
                       ),
-                    ),
+                      TextButton.icon(
+                        onPressed: () => {},
+                        icon: Icon(
+                          Icons.remove,
+                          color: Colors.green,
+                        ),
+                        label: Text(
+                          "Accept All",
+                          style: TextStyle(
+                            color: Colors.green,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   reponseScreenSizes: [ScreenSize.xs],
                   actions: [
