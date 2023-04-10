@@ -60,16 +60,20 @@ class contatc extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                contact_tile(),
-                contact_tile(),
-                Text('الموقع الإلكتروني'),
-                Card(
-                    child: ListTile(
-                  onTap: _launchUrl_web,
-                  leading: Icon(Icons.web),
-                  title: Text('RightServices.com'),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                )),
+                contact_tile(
+                  title: 'الموقع الإلكتروني ',
+                  icon: 'https://cdn-icons-png.flaticon.com/512/556/556813.png',
+                  url_to_show: 'youtube',
+                  url: 'https://www.youtube.com/watch?v=cFi0PfYbEI0',
+                  url_type: '',
+                ),
+                contact_tile(
+                  title: 'البريد الإلكتروني',
+                  icon: 'https://cdn-icons-png.flaticon.com/512/556/556813.png',
+                  url_to_show: 'S7QURAN-S@hotmail.com',
+                  url: 'S7QURAN-S@hotmail.com',
+                  url_type: 'mailto:',
+                ),
                 Text(
                   'البريد الإلكتروني',
                 ),
@@ -166,11 +170,11 @@ class contact_tile extends StatelessWidget {
             onTap: () {
               _launchUrl_url(url_type, url);
             },
-            leading: Icon(Icons.web),
-            title: Text(url_to_show),
-            trailing: CircleAvatar(
+            leading: CircleAvatar(
               backgroundImage: NetworkImage(icon),
             ),
+            title: Text(url_to_show),
+            trailing: Icon(Icons.arrow_forward_ios),
           )),
         ],
       ),
