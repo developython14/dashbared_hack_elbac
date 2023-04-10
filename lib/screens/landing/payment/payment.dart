@@ -1,8 +1,115 @@
 import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 
-class payment extends StatelessWidget {
+class payment extends StatefulWidget {
   const payment({Key? key}) : super(key: key);
+
+  @override
+  State<payment> createState() => _paymentState();
+}
+
+class _paymentState extends State<payment> {
+  Future<void> _dialogBuilder_change_rip(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('ccp number'),
+          content: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextFormField(
+                decoration:
+                    InputDecoration(hintText: 'put your new ccp number'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('exit'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('confirm '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _dialogBuilder_change_images(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Images'),
+          content: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(onPressed: () {}, child: Text('add new image')),
+              ListTile(
+                textColor: Colors.red,
+                trailing: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?pid=ImgDet&rs=1')),
+                title: Text('remove this'),
+                onTap: () {},
+              ),
+              ListTile(
+                textColor: Colors.red,
+                trailing: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?pid=ImgDet&rs=1')),
+                title: Text('remove this'),
+                onTap: () {},
+              )
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('exit'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('confirm '),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +167,16 @@ class payment extends StatelessWidget {
                           'https://hakelbac.com/uploads//1663192146688-hakelbac-received_1092412781474589.jpeg')),
                   title: Text('001486730070'),
                 )),
+                ElevatedButton(
+                    onPressed: () {
+                      _dialogBuilder_change_rip(context);
+                    },
+                    child: Text('change ccp account')),
+                ElevatedButton(
+                    onPressed: () {
+                      _dialogBuilder_change_images(context);
+                    },
+                    child: Text('change image discreptions')),
                 Text(
                   'اتبع الخطوات الموجودة في الصور',
                   style: TextStyle(fontSize: 18),

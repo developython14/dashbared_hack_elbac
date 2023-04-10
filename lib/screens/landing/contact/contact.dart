@@ -23,7 +23,7 @@ class _contatcState extends State<contatc> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('إنشاء ستوري جديد'),
+          title: const Text('create new contact'),
           content: Form(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
