@@ -40,10 +40,17 @@ class _CoursState extends State<Cours> {
       child: SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                chaipte(headerStyle: _headerStyle),
-              ],
+            child: SizedBox(
+              height: 300,
+              child: ReorderableListView(
+                children: [
+                  chaipte(key: ValueKey('fr4ee'), headerStyle: _headerStyle),
+                  chaipte(key: ValueKey('fr444ee'), headerStyle: _headerStyle),
+                  chaipte(key: ValueKey('fre4444e'), headerStyle: _headerStyle),
+                  chaipte(key: ValueKey('free4'), headerStyle: _headerStyle),
+                ],
+                onReorder: (oldIndex, newIndex) {},
+              ),
             ),
           ),
         ),
@@ -79,8 +86,24 @@ class chaipte extends StatelessWidget {
           leftIcon: const Icon(Icons.insights_rounded, color: Colors.white),
           headerBackgroundColor: Colors.red,
           headerBackgroundColorOpened: Colors.black,
-          header: Text('تعيين كمية المادة عن طريق قياس الناقلية',
-              style: _headerStyle),
+          header: Row(
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.edit_document,
+                    color: Colors.grey,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.remove_circle_outline,
+                    color: Colors.red,
+                  )),
+              Text('تعيين كمية المادة عن طريق قياس الناقلية',
+                  style: _headerStyle),
+            ],
+          ),
           content: SizedBox(
             height: 200,
             child: ReorderableListView(
@@ -90,7 +113,19 @@ class chaipte extends StatelessWidget {
                   key: ValueKey('free'),
                   children: [
                     Icon(Icons.play_circle_filled),
-                    Text('درس شامل الجزء1')
+                    Text('درس شامل الجزء1'),
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.edit_document,
+                          color: Colors.grey,
+                        )),
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.remove_circle_outline,
+                          color: Colors.red,
+                        ))
                   ],
                 ),
                 Row(
