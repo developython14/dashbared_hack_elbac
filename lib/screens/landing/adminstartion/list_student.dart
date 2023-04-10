@@ -153,24 +153,24 @@ class _list_studentsState extends State<list_students> {
           sourceBuilder: ((value, row) {
             return Row(
               children: [
-                TextButton(
+                IconButton(
                     onPressed: () {},
-                    child: Text(
-                      'remove',
-                      style: TextStyle(color: Colors.red),
+                    icon: Icon(
+                      Icons.remove_circle,
+                      color: Colors.red,
                     )),
-                TextButton(
+                IconButton(
                     onPressed: () {},
-                    child: Text(
-                      'Accept',
-                      style: TextStyle(color: Colors.green),
+                    icon: Icon(
+                      Icons.remove_circle,
+                      color: Colors.red,
                     )),
-                TextButton(
+                IconButton(
                     onPressed: () {},
-                    child: Text(
-                      'Rest Devices',
-                      style: TextStyle(color: Color.fromARGB(255, 230, 126, 0)),
-                    ))
+                    icon: Icon(
+                      Icons.remove_circle,
+                      color: Colors.red,
+                    )),
               ],
             );
           }),
