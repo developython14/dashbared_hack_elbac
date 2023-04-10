@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'package:flutter/foundation.dart';
 
 final Uri _url_email =
@@ -33,6 +32,14 @@ Future<void> _launchUrl_sms() async {
   }
 }
 
+Future<void> _launchUrl_url(type, data) async {
+  String url = type + data;
+  final Uri url_launcher = Uri.parse(url);
+  if (!await launchUrl(url_launcher)) {
+    throw 'Could not launch $_url_sms';
+  }
+}
+
 class contatc extends StatelessWidget {
   const contatc({Key? key}) : super(key: key);
 
@@ -53,6 +60,24 @@ class contatc extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('الموقع الإلكتروني'),
+                      Card(
+                          child: ListTile(
+                        onTap: () {
+                          _launchUrl_url(
+                              '', 'https://github.com/developython14');
+                        },
+                        leading: Icon(Icons.web),
+                        title: Text('RightServices.com'),
+                        trailing: Icon(Icons.arrow_forward_ios),
+                      )),
+                    ],
+                  ),
+                ),
                 Text('الموقع الإلكتروني'),
                 Card(
                     child: ListTile(
