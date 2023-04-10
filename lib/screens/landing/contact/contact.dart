@@ -74,58 +74,44 @@ class contatc extends StatelessWidget {
                   url: 'S7QURAN-S@hotmail.com',
                   url_type: 'mailto:',
                 ),
-                Text(
-                  'البريد الإلكتروني',
+                contact_tile(
+                  title: 'رقم الهاتف',
+                  icon: 'https://cdn-icons-png.flaticon.com/512/556/556813.png',
+                  url_to_show: '+966-56-302-7472',
+                  url: '+966-56-302-7472',
+                  url_type: 'tel:',
                 ),
-                Card(
-                    child: ListTile(
-                  onTap: _launchUrl_email,
-                  leading: Icon(Icons.email),
-                  title: Text('S7QURAN-S@hotmail.com'),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                )),
-                Text(
-                  'رقم الهاتف',
+                contact_tile(
+                  title: 'الرسائل القصيرة',
+                  icon: 'https://cdn-icons-png.flaticon.com/512/556/556813.png',
+                  url_to_show: '+966-56-302-7472',
+                  url: '+966-56-302-7472',
+                  url_type: 'sms:',
                 ),
-                Card(
-                    child: ListTile(
-                  onTap: _launchUrl_phone,
-                  leading: Icon(Icons.phone),
-                  title: Text('+966-56-302-7472'),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                )),
-                Text(
-                  'الرسائل القصيرة',
+                contact_tile(
+                  title: 'الرسائل القصيرة',
+                  icon: 'https://cdn-icons-png.flaticon.com/512/556/556813.png',
+                  url_to_show: '+966-56-302-7472',
+                  url: '+966-56-302-7472',
+                  url_type: 'sms:',
                 ),
-                Card(
-                    child: ListTile(
-                  onTap: _launchUrl_sms,
-                  leading: Icon(Icons.sms),
-                  title: Text('+966-56-302-7472'),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                )),
-                Text(
-                  'الرسائل القصيرة',
+                contact_tile(
+                  title: 'الرسائل القصيرة',
+                  icon: 'https://cdn-icons-png.flaticon.com/512/556/556813.png',
+                  url_to_show: '+966-56-302-7472',
+                  url: '+966-56-302-7472',
+                  url_type: 'sms:',
                 ),
-                Card(
-                    child: ListTile(
-                  onTap: _launchUrl_sms,
-                  leading: Icon(Icons.facebook),
-                  title: Text('الأستاذ بلال'),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                )),
+                contact_tile(
+                  title: 'إنستغرام',
+                  icon:
+                      'https://th.bing.com/th/id/R.26d9974a1feec9905a4e0d5e5ddf8db6?rik=ycoXFwG5Udz08A&pid=ImgRaw&r=0',
+                  url_to_show: 'prof bilal',
+                  url: 'https://www.instagram.com/prof.billal.4am/',
+                  url_type: '',
+                ),
                 Text(
                   ' إنستغرام',
-                ),
-                Card(
-                    child: ListTile(
-                  onTap: _launchUrl_sms,
-                  leading: Icon(Icons.facebook_outlined),
-                  title: Text('الأستاذ بلال'),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                )),
-                Text(
-                  ' واتس اب  ',
                 ),
                 Card(
                     child: ListTile(
