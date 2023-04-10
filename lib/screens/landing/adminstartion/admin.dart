@@ -21,7 +21,7 @@ class _adminState extends State<admin> {
               ),
               title: Text('Students'),
               onTap: () {
-                Navigator.pushNamed(context, '/accepted_opinion');
+                Navigator.pushNamed(context, '/list_students');
               },
             ),
           ),

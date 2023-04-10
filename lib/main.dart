@@ -1,3 +1,4 @@
+import 'package:dashboared_hakelbac/screens/landing/adminstartion/list_student.dart';
 import 'package:dashboared_hakelbac/screens/landing/opinion/accepted.dart';
 import 'package:dashboared_hakelbac/screens/landing/opinion/requested.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,7 @@ class _MyAppState extends State<MyApp> {
         '/requested_opinion': (context) => requested_opinion(),
         '/accepted_opinion': (context) => accepted_opinion(),
         '/change_photo': (context) => change_photo(),
+        '/list_students': (context) => list_students(),
       },
     );
   }

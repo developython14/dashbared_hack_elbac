@@ -2,13 +2,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:responsive_table/responsive_table.dart';
 
-class requested_opinion extends StatefulWidget {
-  requested_opinion({Key? key}) : super(key: key);
+class list_students extends StatefulWidget {
+  list_students({Key? key}) : super(key: key);
   @override
-  _requested_opinionState createState() => _requested_opinionState();
+  _list_studentsState createState() => _list_studentsState();
 }
 
-class _requested_opinionState extends State<requested_opinion> {
+class _list_studentsState extends State<list_students> {
   late List<DatatableHeader> _headers;
 
   List<int> _perPages = [10, 20, 50, 100];
@@ -41,10 +41,11 @@ class _requested_opinionState extends State<requested_opinion> {
     for (var data in source) {
       temps.add({
         "username": "username$i\000$i",
-        "opinion": "is it best prcatice to prepare my bac in 2023",
-        "date": "20/04/1998",
-        "in_stock": "${i}0",
-        "received": [i + 20, 150]
+        "joining_date": "20/04/1998",
+        "last_loging": "20/04/1998",
+        "device_id": "${i}0",
+        "status": "${i}0",
+        "actions": [i + 20, 150]
       });
       i++;
     }
@@ -121,14 +122,26 @@ class _requested_opinionState extends State<requested_opinion> {
           editable: true,
           textAlign: TextAlign.left),
       DatatableHeader(
-          text: "opinion",
-          value: "opinion",
+          text: "joining_date",
+          value: "joining_date",
           show: true,
           sortable: true,
           textAlign: TextAlign.center),
       DatatableHeader(
-          text: "date",
-          value: "date",
+          text: "last_loging",
+          value: "last_loging",
+          show: true,
+          sortable: true,
+          textAlign: TextAlign.left),
+      DatatableHeader(
+          text: "device_id",
+          value: "device_id",
+          show: true,
+          sortable: true,
+          textAlign: TextAlign.left),
+      DatatableHeader(
+          text: "status",
+          value: "status",
           show: true,
           sortable: true,
           textAlign: TextAlign.left),
@@ -143,7 +156,7 @@ class _requested_opinionState extends State<requested_opinion> {
                 TextButton(
                     onPressed: () {},
                     child: Text(
-                      'Reject',
+                      'remove',
                       style: TextStyle(color: Colors.red),
                     )),
                 TextButton(
@@ -151,6 +164,12 @@ class _requested_opinionState extends State<requested_opinion> {
                     child: Text(
                       'Accept',
                       style: TextStyle(color: Colors.green),
+                    )),
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Rest Devices',
+                      style: TextStyle(color: Color.fromARGB(255, 230, 126, 0)),
                     ))
               ],
             );
