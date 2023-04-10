@@ -21,6 +21,7 @@ class modules extends StatelessWidget {
                 child: ReorderableListView(
                   children: [
                     module_componant(
+                      key: ValueKey('free'),
                       hei: hei,
                       title: 'العلوم الفيزيائية',
                       abre:
@@ -28,6 +29,7 @@ class modules extends StatelessWidget {
                       path: '/profs',
                     ),
                     module_componant(
+                      key: ValueKey('freeeee'),
                       hei: hei,
                       title: ' العلوم الطبيعية ',
                       abre:

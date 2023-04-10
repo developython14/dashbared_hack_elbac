@@ -23,17 +23,12 @@ class _CoursState extends State<Cours> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    controller = PodPlayerController(
-      playVideoFrom: PlayVideoFrom.vimeo('807698541'),
-    )..initialise();
     super.initState();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    controller.dispose();
     super.dispose();
   }
 
@@ -47,21 +42,12 @@ class _CoursState extends State<Cours> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                PodVideoPlayer(controller: controller),
-                ElevatedButton(
-                    onPressed: () {},
-                    child: Text('حمل ملف الملخص الشامل من هنا')),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
-                chaipte(headerStyle: _headerStyle),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('حمل ملف الملخص الشامل من هنا')),
+                ),
                 chaipte(headerStyle: _headerStyle),
               ],
             ),
@@ -101,7 +87,8 @@ class chaipte extends StatelessWidget {
           headerBackgroundColorOpened: Colors.black,
           header: Text('تعيين كمية المادة عن طريق قياس الناقلية',
               style: _headerStyle),
-          content: Column(
+          content: ReorderableListView(
+            onReorder: (oldIndex, newIndex) {},
             children: [
               Row(
                 children: [
