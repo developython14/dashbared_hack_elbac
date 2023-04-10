@@ -17,8 +17,7 @@ class _adminState extends State<admin> {
           Card(
             child: ListTile(
               leading: Icon(
-                Icons.verified,
-                color: Colors.green,
+                Icons.people_outline,
               ),
               title: Text('Students'),
               onTap: () {
