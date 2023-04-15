@@ -50,6 +50,7 @@ dependencies:
   appinio_video_player: ^1.2.0
   pod_player: ^0.1.0
   responsive_table: ^0.2.0+2
+  http: ^0.13.5
 
 
 dev_dependencies:

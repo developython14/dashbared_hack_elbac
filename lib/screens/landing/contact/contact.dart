@@ -18,6 +18,36 @@ class contatc extends StatefulWidget {
 }
 
 class _contatcState extends State<contatc> {
+  Future<void> add_new_contact() async {
+    final datatosend = {
+      'email': email,
+      'password': password,
+    };
+    final url = Uri.parse(base_url + '/admin/login/' + role);
+    var request = http.MultipartRequest('POST', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
+    request.fields.addAll(datatosend);
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    var jsonResponse = convert.jsonDecode(response.body);
+    if (jsonResponse['message'] == 'login succesfly') {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('username', jsonResponse['username']);
+      await prefs.setString('userimage', jsonResponse['user_image']);
+      await prefs.setString('email', jsonResponse['email']);
+      await prefs.setString('id', jsonResponse['user_id']);
+      await prefs.setString('role', role);
+      await prefs.setString('password', password);
+      context.read<userdata>().change();
+      context.read<chatprovider>().getexpertdata();
+      context.read<chatprovider>().changeuserid();
+    }
+    setState(() {
+      message = jsonResponse['message'];
+    });
+  }
+
   Future<void> _dialogBuilder_add_stories(BuildContext context) {
     return showDialog<void>(
       context: context,
