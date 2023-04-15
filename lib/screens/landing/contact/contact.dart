@@ -40,7 +40,7 @@ class _contatcState extends State<contatc> {
     print('salam alikon ');
     var test = Uri.parse(Base_url + '/contacts/');
     var response = await http.get(test);
-    print('called ffine');
+    print('called fine');
     print(response);
     List articles = [];
     if (response.statusCode == 200) {
