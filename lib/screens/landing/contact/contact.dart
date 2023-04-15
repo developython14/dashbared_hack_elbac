@@ -1,6 +1,9 @@
+import 'package:dashboared_hakelbac/host/base_url.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 Future<void> _launchUrl_url(type, data) async {
   String url = type + data;
@@ -19,11 +22,8 @@ class contatc extends StatefulWidget {
 
 class _contatcState extends State<contatc> {
   Future<void> add_new_contact() async {
-    final datatosend = {
-      'email': email,
-      'password': password,
-    };
-    final url = Uri.parse(base_url + '/admin/login/' + role);
+    final datatosend = {};
+    final url = Uri.parse(Base_url + '/contacts/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
@@ -31,21 +31,23 @@ class _contatcState extends State<contatc> {
     var push = await request.send();
     var response = await http.Response.fromStream(push);
     var jsonResponse = convert.jsonDecode(response.body);
-    if (jsonResponse['message'] == 'login succesfly') {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('username', jsonResponse['username']);
-      await prefs.setString('userimage', jsonResponse['user_image']);
-      await prefs.setString('email', jsonResponse['email']);
-      await prefs.setString('id', jsonResponse['user_id']);
-      await prefs.setString('role', role);
-      await prefs.setString('password', password);
-      context.read<userdata>().change();
-      context.read<chatprovider>().getexpertdata();
-      context.read<chatprovider>().changeuserid();
+    print(jsonResponse);
+    if (jsonResponse['message'] == 'login succesfly') {}
+    setState(() {});
+  }
+
+  getcontact_data() async {
+    var test = Uri.parse(Base_url + '/contacts/');
+    var response = await http.get(test);
+    List articles = [];
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      print(jsonResponse);
+      return articles;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+      return [];
     }
-    setState(() {
-      message = jsonResponse['message'];
-    });
   }
 
   Future<void> _dialogBuilder_add_stories(BuildContext context) {
