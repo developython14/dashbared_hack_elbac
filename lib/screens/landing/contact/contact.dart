@@ -37,6 +37,7 @@ class _contatcState extends State<contatc> {
   }
 
   getcontact_data() async {
+    print('salam alikon ');
     var test = Uri.parse(Base_url + '/contacts/');
     var response = await http.get(test);
     print('called ffine');
@@ -44,7 +45,6 @@ class _contatcState extends State<contatc> {
     List articles = [];
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      print('salam alikon ');
       print(jsonResponse);
       print(jsonResponse);
       return articles;
