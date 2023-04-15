@@ -21,6 +21,7 @@ class contatc extends StatefulWidget {
 }
 
 class _contatcState extends State<contatc> {
+  List ref = [];
   Future<void> add_new_contact() async {
     final datatosend = {};
     final url = Uri.parse(Base_url + '/contacts/');
@@ -37,20 +38,15 @@ class _contatcState extends State<contatc> {
   }
 
   getcontact_data() async {
-    print('salam alikon ');
-    var test = Uri.parse(Base_url + '/contacts/');
+    var test = Uri.parse(Base_url + 'contacts/');
     var response = await http.get(test);
-    print('called fine');
-    print(response);
-    List articles = [];
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      print(jsonResponse);
-      print(jsonResponse);
-      return articles;
+      setState(() {
+        ref = jsonResponse['results'];
+      });
     } else {
       print('Request failed with status: ${response.statusCode}.');
-      return [];
     }
   }
 
@@ -169,53 +165,15 @@ class _contatcState extends State<contatc> {
                   height: 800,
                   child: ReorderableListView(
                       onReorder: (oldIndex, newIndex) {},
-                      children: [
-                        contact_tile(
-                          key: ValueKey('fre'),
-                          title: 'الموقع الإلكتروني ',
-                          icon:
-                              'https://cdn-icons-png.flaticon.com/512/556/556813.png',
-                          url_to_show: 'youtube',
-                          url: 'https://www.youtube.com/watch?v=cFi0PfYbEI0',
-                          url_type: '',
-                        ),
-                        contact_tile(
-                          key: ValueKey('feere'),
-                          title: 'البريد الإلكتروني',
-                          icon:
-                              'https://cdn-icons-png.flaticon.com/512/556/556813.png',
-                          url_to_show: 'S7QURAN-S@hotmail.com',
-                          url: 'S7QURAN-S@hotmail.com',
-                          url_type: 'mailto:',
-                        ),
-                        contact_tile(
-                          key: ValueKey('freeee'),
-                          title: 'رقم الهاتف',
-                          icon:
-                              'https://cdn-icons-png.flaticon.com/512/556/556813.png',
-                          url_to_show: '+966-56-302-7472',
-                          url: '+966-56-302-7472',
-                          url_type: 'tel:',
-                        ),
-                        contact_tile(
-                          key: ValueKey('fre23'),
-                          title: 'الرسائل القصيرة',
-                          icon:
-                              'https://cdn-icons-png.flaticon.com/512/556/556813.png',
-                          url_to_show: '+966-56-302-7472',
-                          url: '+966-56-302-7472',
-                          url_type: 'sms:',
-                        ),
-                        contact_tile(
-                          key: ValueKey('fr33e'),
-                          title: 'إنستغرام',
-                          icon:
-                              'https://th.bing.com/th/id/R.26d9974a1feec9905a4e0d5e5ddf8db6?rik=ycoXFwG5Udz08A&pid=ImgRaw&r=0',
-                          url_to_show: 'prof bilal',
-                          url: 'https://www.instagram.com/prof.billal.4am/',
-                          url_type: '',
-                        ),
-                      ]),
+                      children: ref
+                          .map((e) => contact_tile(
+                                title: e['title'],
+                                icon: e['icon_title'],
+                                url_to_show: e['text_to_show'],
+                                url_type: e['type_url'],
+                                url: e['url'],
+                              ))
+                          .toList()),
                 ),
                 ElevatedButton(
                   child: Text('add_new'),
