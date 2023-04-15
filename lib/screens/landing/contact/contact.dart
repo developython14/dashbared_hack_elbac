@@ -27,11 +27,11 @@ class _contatcState extends State<contatc> {
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
-    request.fields.addAll(datatosend);
+    //request.fields.addAll(datatosend);
     var push = await request.send();
     var response = await http.Response.fromStream(push);
     var jsonResponse = convert.jsonDecode(response.body);
-    print(jsonResponse);
+
     if (jsonResponse['message'] == 'login succesfly') {}
     setState(() {});
   }
@@ -39,9 +39,13 @@ class _contatcState extends State<contatc> {
   getcontact_data() async {
     var test = Uri.parse(Base_url + '/contacts/');
     var response = await http.get(test);
+    print('called ffine');
+    print(response);
     List articles = [];
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
+      print('salam alikon ');
+      print(jsonResponse);
       print(jsonResponse);
       return articles;
     } else {
@@ -135,6 +139,13 @@ class _contatcState extends State<contatc> {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getcontact_data();
   }
 
   @override
