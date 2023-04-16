@@ -1,5 +1,8 @@
+import 'package:dashboared_hakelbac/host/base_url.dart';
 import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 class payment extends StatefulWidget {
   const payment({Key? key}) : super(key: key);
@@ -9,6 +12,18 @@ class payment extends StatefulWidget {
 }
 
 class _paymentState extends State<payment> {
+  getccpdata() async {
+    var test = Uri.parse(Base_url + 'contacts/');
+    var response = await http.get(test);
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      print(jsonResponse);
+      setState(() {});
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
   Future<void> _dialogBuilder_change_rip(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -109,6 +124,13 @@ class _paymentState extends State<payment> {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getccpdata();
   }
 
   @override

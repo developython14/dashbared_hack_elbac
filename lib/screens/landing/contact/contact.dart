@@ -164,14 +164,7 @@ class _contatcState extends State<contatc> {
                 SizedBox(
                   height: 800,
                   child: ReorderableListView(
-                      onReorder: (int oldIndex, int newIndex) {
-        setState(() {
-          if (oldIndex < newIndex) {
-            newIndex -= 1;
-          }
-          final int item = _items.removeAt(oldIndex);
-          _items.insert(newIndex, item);
-        })},
+                      onReorder: (int oldIndex, int newIndex) {},
                       children: ref
                           .map((e) => contact_tile(
                                 key: ValueKey(e['created']),
