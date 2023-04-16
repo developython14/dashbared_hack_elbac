@@ -164,9 +164,17 @@ class _contatcState extends State<contatc> {
                 SizedBox(
                   height: 800,
                   child: ReorderableListView(
-                      onReorder: (oldIndex, newIndex) {},
+                      onReorder: (int oldIndex, int newIndex) {
+        setState(() {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          final int item = _items.removeAt(oldIndex);
+          _items.insert(newIndex, item);
+        })},
                       children: ref
                           .map((e) => contact_tile(
+                                key: ValueKey(e['created']),
                                 title: e['title'],
                                 icon: e['icon_title'],
                                 url_to_show: e['text_to_show'],
@@ -178,7 +186,9 @@ class _contatcState extends State<contatc> {
                 ElevatedButton(
                   child: Text('add_new'),
                   onPressed: () {
-                    _dialogBuilder_add_stories(context);
+                    _launchUrl_url('',
+                        'https://servicessaudi.de.r.appspot.com/contacts/2/');
+                    //_dialogBuilder_add_stories(context);
                   },
                 )
               ],
