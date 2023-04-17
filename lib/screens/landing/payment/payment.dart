@@ -12,13 +12,30 @@ class payment extends StatefulWidget {
 }
 
 class _paymentState extends State<payment> {
+  String ccp = '';
+  String edit_ccp = '';
+
   getccpdata() async {
-    var test = Uri.parse(Base_url + 'contacts/');
+    var test = Uri.parse(Base_url + 'ccp/');
     var response = await http.get(test);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      print(jsonResponse);
-      setState(() {});
+      setState(() {
+        ccp = jsonResponse['results'][0]['title'];
+      });
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  updateccp() async {
+    var test = Uri.parse(Base_url + 'ccp/1');
+    var response = await http.put(test, body: {'title': ''});
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      setState(() {
+        ccp = jsonResponse['results'][0]['title'];
+      });
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
@@ -35,6 +52,11 @@ class _paymentState extends State<payment> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    edit_ccp = value.toString();
+                  });
+                },
                 decoration:
                     InputDecoration(hintText: 'put your new ccp number'),
                 // The validator receives the text that the user has entered.
@@ -151,21 +173,20 @@ class _paymentState extends State<payment> {
                 Card(
                     child: ListTile(
                   onTap: (() {
-                    FlutterClipboard.copy('00799999001486730070').then(
-                        (value) =>
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                onVisible: () {},
-                                backgroundColor: Colors.white,
-                                content: Text(
-                                  'تم النسخ بنجاح',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 20),
-                                ))));
+                    FlutterClipboard.copy('00799999' + ccp).then((value) =>
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            onVisible: () {},
+                            backgroundColor: Colors.white,
+                            content: Text(
+                              'تم النسخ بنجاح',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            ))));
                   }),
                   leading: CircleAvatar(
                       backgroundImage: NetworkImage(
                           'https://hakelbac.com/uploads//1663192164422-hakelbac-received_1464983610680964.jpeg')),
-                  title: Text('00799999001486730070'),
+                  title: Text('00799999' + ccp),
                 )),
                 Text(
                   'أو عبر البريد ccp',
@@ -174,7 +195,7 @@ class _paymentState extends State<payment> {
                 Card(
                     child: ListTile(
                   onTap: (() {
-                    FlutterClipboard.copy('001486730070').then((value) =>
+                    FlutterClipboard.copy(ccp).then((value) =>
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             onVisible: () {},
                             backgroundColor: Colors.white,
@@ -187,7 +208,7 @@ class _paymentState extends State<payment> {
                   leading: CircleAvatar(
                       backgroundImage: NetworkImage(
                           'https://hakelbac.com/uploads//1663192146688-hakelbac-received_1092412781474589.jpeg')),
-                  title: Text('001486730070'),
+                  title: Text(ccp),
                 )),
                 ElevatedButton(
                     onPressed: () {
