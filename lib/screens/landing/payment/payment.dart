@@ -13,11 +13,7 @@ class payment extends StatefulWidget {
 }
 
 class _paymentState extends State<payment> {
-  var current = {
-    "id": 1,
-    "created": "2023-04-16T13:22:32.051788Z",
-    "title": "freefire"
-  };
+  var current;
 
   getccpdata() async {
     print('start get data');
@@ -35,17 +31,7 @@ class _paymentState extends State<payment> {
     }
   }
 
-  updateccp() async {
-    var test = Uri.parse(Base_url + 'ccp/1');
-    var response = await http.put(test, body: {'title': current});
-    print('action here');
-    print(response.body);
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
-  }
+  updateccp() async {}
 
   Future<void> _dialogBuilder_change_rip(BuildContext context) {
     return showDialog<void>(
