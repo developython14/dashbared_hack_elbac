@@ -34,19 +34,18 @@ class _contatcState extends State<contatc> {
   File? cv;
 
   Future<void> add_new_contact() async {
-    print(datatosend);
-    //final url = Uri.parse(Base_url + '/contacts/');
-    //var request = http.MultipartRequest('POST', url);
-    //final headers = {'Content-type': 'multipart/form-data'};
-    //request.headers.addAll(headers);
-    //request.fields.addAll(datatosend);
+    final url = Uri.parse(Base_url + '/contacts/');
+    var request = http.MultipartRequest('POST', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
+    request.fields.addAll(datatosend);
     final photo = http.MultipartFile.fromBytes(
         'icon_title', await cv!.readAsBytes(),
         filename: cv!.path.split("/").last);
-    //request.files.add(photo);
-    //var push = await request.send();
-    //var response = await http.Response.fromStream(push);
-    //var jsonResponse = convert.jsonDecode(response.body);
+    request.files.add(photo);
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    var jsonResponse = convert.jsonDecode(response.body);
   }
 
   getcontact_data() async {
@@ -87,21 +86,20 @@ class _contatcState extends State<contatc> {
                   return null;
                 },
               ),
-              TextFormField(
-                onChanged: (value) {
-                  setState(() {
-                    datatosend['icon_url'] = value;
-                  });
-                },
-                decoration: InputDecoration(hintText: 'icon_url'),
-                // The validator receives the text that the user has entered.
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    FilePickerResult? result =
+                        await FilePicker.platform.pickFiles();
+
+                    if (result != null) {
+                      setState(() {
+                        cv = File(result.files.single.path!);
+                      });
+                    } else {
+                      // User canceled the picker
+                    }
+                  },
+                  child: Text('Icon')),
               TextFormField(
                 onChanged: (value) {
                   setState(() {
