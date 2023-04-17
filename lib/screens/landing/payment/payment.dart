@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:future_progress_dialog/future_progress_dialog.dart';
 
 class payment extends StatefulWidget {
   const payment({Key? key}) : super(key: key);
@@ -31,11 +32,10 @@ class _paymentState extends State<payment> {
   updateccp() async {
     var test = Uri.parse(Base_url + 'ccp/1');
     var response = await http.put(test, body: {'title': ''});
+    print('action here');
+    print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      setState(() {
-        ccp = jsonResponse['results'][0]['title'];
-      });
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
@@ -85,7 +85,11 @@ class _paymentState extends State<payment> {
               ),
               child: const Text('confirm '),
               onPressed: () {
-                Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  builder: (context) => FutureProgressDialog(updateccp(),
+                      message: Text('Loading...')),
+                );
               },
             ),
           ],
