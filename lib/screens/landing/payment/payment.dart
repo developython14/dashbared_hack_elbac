@@ -16,7 +16,7 @@ class _paymentState extends State<payment> {
   var current = {
     "id": 1,
     "created": "2023-04-16T13:22:32.051788Z",
-    "title": "4324324242342"
+    "title": "freefire"
   };
 
   getccpdata() async {
@@ -25,9 +25,10 @@ class _paymentState extends State<payment> {
     var response = await http.get(test);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
+      print('response hadi');
       print(jsonResponse);
       setState(() {
-        current = jsonResponse['results'];
+        current = jsonResponse;
       });
     } else {
       print('Request failed with status: ${response.statusCode}.');
