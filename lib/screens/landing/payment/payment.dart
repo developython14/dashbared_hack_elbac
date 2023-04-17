@@ -20,12 +20,14 @@ class _paymentState extends State<payment> {
   };
 
   getccpdata() async {
-    var test = Uri.parse(Base_url + 'ccp/');
+    print('start get data');
+    var test = Uri.parse(Base_url + 'ccp/1/');
     var response = await http.get(test);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
+      print(jsonResponse);
       setState(() {
-        current = jsonResponse['results'][0];
+        current = jsonResponse['results'];
       });
     } else {
       print('Request failed with status: ${response.statusCode}.');
