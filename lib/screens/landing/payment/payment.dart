@@ -34,7 +34,6 @@ class _paymentState extends State<payment> {
   updateccp() async {
     var test = Uri.parse(Base_url + 'ccp/3/');
     var response = await http.put(test, body: {'title': current['title']});
-    print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
     } else {
@@ -85,12 +84,13 @@ class _paymentState extends State<payment> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child: const Text('confirm '),
-              onPressed: () {
-                showDialog(
+              onPressed: () async {
+                await showDialog(
                   context: context,
                   builder: (context) => FutureProgressDialog(updateccp(),
                       message: Text('Loading...')),
                 );
+                Navigator.of(context).pop();
               },
             ),
           ],

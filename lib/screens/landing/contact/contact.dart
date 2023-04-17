@@ -4,6 +4,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
+import 'package:future_progress_dialog/future_progress_dialog.dart';
 
 Future<void> _launchUrl_url(type, data) async {
   String url = type + data;
@@ -22,19 +25,28 @@ class contatc extends StatefulWidget {
 
 class _contatcState extends State<contatc> {
   List ref = [];
+  final datatosend = {
+    'title': '',
+    'type_url': '',
+    'url': '',
+    'text_to_show': ''
+  };
+  File? cv;
+
   Future<void> add_new_contact() async {
-    final datatosend = {};
+    print(datatosend);
     final url = Uri.parse(Base_url + '/contacts/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
-    //request.fields.addAll(datatosend);
+    request.fields.addAll(datatosend);
+    final photo = http.MultipartFile.fromBytes(
+        'icon_title', await cv!.readAsBytes(),
+        filename: cv!.path.split("/").last);
+    request.files.add(photo);
     var push = await request.send();
     var response = await http.Response.fromStream(push);
     var jsonResponse = convert.jsonDecode(response.body);
-
-    if (jsonResponse['message'] == 'login succesfly') {}
-    setState(() {});
   }
 
   getcontact_data() async {
@@ -61,6 +73,11 @@ class _contatcState extends State<contatc> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    datatosend['title'] = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'title'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -71,6 +88,11 @@ class _contatcState extends State<contatc> {
                 },
               ),
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    datatosend['icon_url'] = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'icon_url'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -81,6 +103,11 @@ class _contatcState extends State<contatc> {
                 },
               ),
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    datatosend['text_to_show'] = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'text_to_show'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -91,6 +118,11 @@ class _contatcState extends State<contatc> {
                 },
               ),
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    datatosend['type_url'] = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'type_url'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -101,6 +133,11 @@ class _contatcState extends State<contatc> {
                 },
               ),
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    datatosend['url'] = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'url'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -127,7 +164,12 @@ class _contatcState extends State<contatc> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child: const Text('إضافة '),
-              onPressed: () {
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => FutureProgressDialog(add_new_contact(),
+                      message: Text('Loading...')),
+                );
                 Navigator.of(context).pop();
               },
             ),
@@ -179,9 +221,7 @@ class _contatcState extends State<contatc> {
                 ElevatedButton(
                   child: Text('add_new'),
                   onPressed: () {
-                    _launchUrl_url('',
-                        'https://servicessaudi.de.r.appspot.com/contacts/2/');
-                    //_dialogBuilder_add_stories(context);
+                    _dialogBuilder_add_stories(context);
                   },
                 )
               ],
