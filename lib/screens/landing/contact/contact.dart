@@ -35,18 +35,18 @@ class _contatcState extends State<contatc> {
 
   Future<void> add_new_contact() async {
     print(datatosend);
-    final url = Uri.parse(Base_url + '/contacts/');
-    var request = http.MultipartRequest('POST', url);
-    final headers = {'Content-type': 'multipart/form-data'};
-    request.headers.addAll(headers);
-    request.fields.addAll(datatosend);
+    //final url = Uri.parse(Base_url + '/contacts/');
+    //var request = http.MultipartRequest('POST', url);
+    //final headers = {'Content-type': 'multipart/form-data'};
+    //request.headers.addAll(headers);
+    //request.fields.addAll(datatosend);
     final photo = http.MultipartFile.fromBytes(
         'icon_title', await cv!.readAsBytes(),
         filename: cv!.path.split("/").last);
-    request.files.add(photo);
-    var push = await request.send();
-    var response = await http.Response.fromStream(push);
-    var jsonResponse = convert.jsonDecode(response.body);
+    //request.files.add(photo);
+    //var push = await request.send();
+    //var response = await http.Response.fromStream(push);
+    //var jsonResponse = convert.jsonDecode(response.body);
   }
 
   getcontact_data() async {
