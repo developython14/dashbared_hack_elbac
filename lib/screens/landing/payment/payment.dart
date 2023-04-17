@@ -31,7 +31,7 @@ class _paymentState extends State<payment> {
 
   updateccp() async {
     var test = Uri.parse(Base_url + 'ccp/1');
-    var response = await http.put(test, body: {'title': ''});
+    var response = await http.put(test, body: {'title': edit_ccp});
     print('action here');
     print(response.body);
     if (response.statusCode == 200) {
