@@ -17,7 +17,7 @@ class _paymentState extends State<payment> {
 
   getccpdata() async {
     print('start get data');
-    var test = Uri.parse(Base_url + 'ccp/1/');
+    var test = Uri.parse(Base_url + 'ccp/3/');
     var response = await http.get(test);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
@@ -31,7 +31,16 @@ class _paymentState extends State<payment> {
     }
   }
 
-  updateccp() async {}
+  updateccp() async {
+    var test = Uri.parse(Base_url + 'ccp/3/');
+    var response = await http.put(test, body: {'title': current['title']});
+    print(response.body);
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
 
   Future<void> _dialogBuilder_change_rip(BuildContext context) {
     return showDialog<void>(
