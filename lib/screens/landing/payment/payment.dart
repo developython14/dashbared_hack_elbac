@@ -13,8 +13,11 @@ class payment extends StatefulWidget {
 }
 
 class _paymentState extends State<payment> {
-  String ccp = '';
-  String edit_ccp = '';
+  var current = {
+    "id": 1,
+    "created": "2023-04-16T13:22:32.051788Z",
+    "title": "4324324242342"
+  };
 
   getccpdata() async {
     var test = Uri.parse(Base_url + 'ccp/');
@@ -22,7 +25,7 @@ class _paymentState extends State<payment> {
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       setState(() {
-        ccp = jsonResponse['results'][0]['title'];
+        current = jsonResponse['results'][0];
       });
     } else {
       print('Request failed with status: ${response.statusCode}.');
@@ -31,7 +34,7 @@ class _paymentState extends State<payment> {
 
   updateccp() async {
     var test = Uri.parse(Base_url + 'ccp/1');
-    var response = await http.put(test, body: {'title': edit_ccp});
+    var response = await http.put(test, body: {'title': current});
     print('action here');
     print(response.body);
     if (response.statusCode == 200) {
@@ -54,7 +57,7 @@ class _paymentState extends State<payment> {
               TextFormField(
                 onChanged: (value) {
                   setState(() {
-                    edit_ccp = value.toString();
+                    current['title'] = value.toString();
                   });
                 },
                 decoration:
@@ -177,20 +180,22 @@ class _paymentState extends State<payment> {
                 Card(
                     child: ListTile(
                   onTap: (() {
-                    FlutterClipboard.copy('00799999' + ccp).then((value) =>
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            onVisible: () {},
-                            backgroundColor: Colors.white,
-                            content: Text(
-                              'تم النسخ بنجاح',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
-                            ))));
+                    FlutterClipboard.copy(
+                            '00799999' + current['title'].toString())
+                        .then((value) =>
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                onVisible: () {},
+                                backgroundColor: Colors.white,
+                                content: Text(
+                                  'تم النسخ بنجاح',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20),
+                                ))));
                   }),
                   leading: CircleAvatar(
                       backgroundImage: NetworkImage(
                           'https://hakelbac.com/uploads//1663192164422-hakelbac-received_1464983610680964.jpeg')),
-                  title: Text('00799999' + ccp),
+                  title: Text('00799999' + current['title'].toString()),
                 )),
                 Text(
                   'أو عبر البريد ccp',
@@ -199,20 +204,21 @@ class _paymentState extends State<payment> {
                 Card(
                     child: ListTile(
                   onTap: (() {
-                    FlutterClipboard.copy(ccp).then((value) =>
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            onVisible: () {},
-                            backgroundColor: Colors.white,
-                            content: Text(
-                              'تم النسخ بنجاح',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
-                            ))));
+                    FlutterClipboard.copy(current['title'].toString()).then(
+                        (value) =>
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                onVisible: () {},
+                                backgroundColor: Colors.white,
+                                content: Text(
+                                  'تم النسخ بنجاح',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20),
+                                ))));
                   }),
                   leading: CircleAvatar(
                       backgroundImage: NetworkImage(
                           'https://hakelbac.com/uploads//1663192146688-hakelbac-received_1092412781474589.jpeg')),
-                  title: Text(ccp),
+                  title: Text(current['title'].toString()),
                 )),
                 ElevatedButton(
                     onPressed: () {
