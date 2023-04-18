@@ -31,7 +31,7 @@ class _contatcState extends State<contatc> {
     'url': '',
     'text_to_show': ''
   };
-  File? cv;
+  Uint8List? cv;
 
   Future<void> add_new_contact() async {
     final url = Uri.parse(Base_url + '/contacts/');
@@ -41,15 +41,13 @@ class _contatcState extends State<contatc> {
     request.fields.addAll(datatosend);
     final photo = http.MultipartFile.fromBytes(
       'icon_title',
-      await cv!.readAsBytes(),
-      filename: cv!.path.split("/").last,
+      cv!,
+      filename: 'free',
     );
     request.files.add(photo);
-    print(request.fields);
-    print(request.files);
-    //var push = await request.send();
-    //var response = await http.Response.fromStream(push);
-    //var jsonResponse = convert.jsonDecode(response.body);
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    var jsonResponse = convert.jsonDecode(response.body);
   }
 
   getcontact_data() async {
@@ -97,7 +95,7 @@ class _contatcState extends State<contatc> {
 
                     if (result != null) {
                       setState(() {
-                        cv = File(result.files.single.path!);
+                        cv = result.files.first.bytes;
                       });
                     } else {
                       // User canceled the picker
