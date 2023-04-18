@@ -41,13 +41,14 @@ class _contatcState extends State<contatc> {
     request.fields.addAll(datatosend);
     final photo = http.MultipartFile.fromBytes(
       'icon_title',
-      cv!,
-      filename: 'free',
+      cv as List<int>,
+      filename: 'free.jpg',
     );
     request.files.add(photo);
     var push = await request.send();
     var response = await http.Response.fromStream(push);
     var jsonResponse = convert.jsonDecode(response.body);
+    print(jsonResponse);
   }
 
   getcontact_data() async {
