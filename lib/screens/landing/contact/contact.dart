@@ -48,10 +48,12 @@ class _contatcState extends State<contatc> {
       );
       request.files.add(photo);
     } catch (e) {
+      print('hadi error');
       print(e);
     }
 
     var push = await request.send();
+    print('hadana idlds');
     var response = await http.Response.fromStream(push);
     var jsonResponse = convert.jsonDecode(response.body);
     print(jsonResponse);
