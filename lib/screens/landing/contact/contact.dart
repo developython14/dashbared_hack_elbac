@@ -226,7 +226,7 @@ class _contatcState extends State<contatc> {
                           .toList()),
                 ),
                 ElevatedButton(
-                  child: Text('add_new'),
+                  child: Text('add_newfkrjkdljfkdadfslj'),
                   onPressed: () {
                     _dialogBuilder_add_stories(context);
                   },
