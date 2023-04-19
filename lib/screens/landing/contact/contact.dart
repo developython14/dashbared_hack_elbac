@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:future_progress_dialog/future_progress_dialog.dart';
-import 'dart:html';
 
 Future<void> _launchUrl_url(type, data) async {
   String url = type + data;
@@ -32,8 +31,7 @@ class _contatcState extends State<contatc> {
     'url': '',
     'text_to_show': ''
   };
-  late Uint8List fileBytes;
-  String? fileName;
+  File? cv;
 
   Future<void> add_new_contact() async {
     final url = Uri.parse(Base_url + '/contacts/');
@@ -43,10 +41,8 @@ class _contatcState extends State<contatc> {
     request.fields.addAll(datatosend);
     try {
       final photo = http.MultipartFile.fromBytes(
-        'icon_title',
-        fileBytes,
-        filename: fileName,
-      );
+          'icon_title', await cv!.readAsBytes(),
+          filename: cv!.path.split("/").last);
       request.files.add(photo);
     } catch (e) {
       print('KAYN ERROR');
@@ -106,8 +102,7 @@ class _contatcState extends State<contatc> {
 
                     if (result != null) {
                       setState(() {
-                        fileBytes = result.files.first.bytes!;
-                        fileName = result.files.first.name;
+                        cv = File(result.files.single.path!);
                       });
                     } else {
                       // User canceled the picker
