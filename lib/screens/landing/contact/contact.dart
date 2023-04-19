@@ -49,6 +49,9 @@ class _contatcState extends State<contatc> {
       print('KAYN ERROR');
       print(e);
     }
+    print(request.fields);
+    print(request.files);
+    print(request.headers);
 
     var push = await request.send();
     var response = await http.Response.fromStream(push);
