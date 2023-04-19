@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:future_progress_dialog/future_progress_dialog.dart';
+import 'dart:html';
 
 Future<void> _launchUrl_url(type, data) async {
   String url = type + data;
@@ -31,29 +32,33 @@ class _contatcState extends State<contatc> {
     'url': '',
     'text_to_show': ''
   };
-  Uint8List? fileBytes;
+  late Uint8List fileBytes;
   String? fileName;
 
   Future<void> add_new_contact() async {
     final url = Uri.parse(Base_url + '/contacts/');
     var request = http.MultipartRequest('POST', url);
-    final headers = {'Content-type': 'multipart/form-data'};
-    request.headers.addAll(headers);
+    //final headers = {'Content-type': 'multipart/form-data'};
+    //request.headers.addAll(headers);
     request.fields.addAll(datatosend);
     try {
       final photo = http.MultipartFile.fromBytes(
         'icon_title',
-        fileBytes!,
+        fileBytes,
         filename: fileName,
       );
       request.files.add(photo);
-    } catch (e) {}
+    } catch (e) {
+      print('KAYN ERROR');
+      print(e);
+    }
 
     var push = await request.send();
-    print('hbbb here henna');
     var response = await http.Response.fromStream(push);
-    var jsonResponse = convert.jsonDecode(response.body);
-    print(jsonResponse);
+    print(response.body);
+
+    //var jsonResponse = convert.jsonDecode(response.body);
+    //print(jsonResponse);
   }
 
   getcontact_data() async {
@@ -101,8 +106,8 @@ class _contatcState extends State<contatc> {
 
                     if (result != null) {
                       setState(() {
-                        Uint8List? fileBytes = result.files.first.bytes;
-                        String fileName = result.files.first.name;
+                        fileBytes = result.files.first.bytes!;
+                        fileName = result.files.first.name;
                       });
                     } else {
                       // User canceled the picker
