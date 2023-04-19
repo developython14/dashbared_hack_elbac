@@ -40,12 +40,17 @@ class _contatcState extends State<contatc> {
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
     request.fields.addAll(datatosend);
-    final photo = http.MultipartFile.fromBytes(
-      'icon_title',
-      fileBytes!,
-      filename: fileName,
-    );
-    request.files.add(photo);
+    try {
+      final photo = http.MultipartFile.fromBytes(
+        'icon_title',
+        fileBytes!,
+        filename: fileName,
+      );
+      request.files.add(photo);
+    } catch (e) {
+      print(e);
+    }
+
     var push = await request.send();
     var response = await http.Response.fromStream(push);
     var jsonResponse = convert.jsonDecode(response.body);
