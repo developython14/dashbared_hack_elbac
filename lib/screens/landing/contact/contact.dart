@@ -33,6 +33,8 @@ class _contatcState extends State<contatc> {
   };
 
   File? cv;
+  Uint8List? fileBytes;
+  String? fileName;
 
   Future<void> add_new_contact() async {
     final url = Uri.parse(Base_url + '/contacts/');
@@ -49,16 +51,36 @@ class _contatcState extends State<contatc> {
       print('KAYN ERROR');
       print(e);
     }
-    print(request.fields);
-    print(request.files);
-    print(request.headers);
 
     var push = await request.send();
     var response = await http.Response.fromStream(push);
     print(response.body);
 
-    //var jsonResponse = convert.jsonDecode(response.body);
-    //print(jsonResponse);
+    var jsonResponse = convert.jsonDecode(response.body);
+    print(jsonResponse);
+  }
+
+  Future<void> add_new_contact_web() async {
+    final url = Uri.parse(Base_url + '/contacts/');
+    var request = http.MultipartRequest('POST', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
+    request.fields.addAll(datatosend);
+    try {
+      final photo = http.MultipartFile.fromBytes('icon_title', fileBytes!,
+          filename: fileName);
+      request.files.add(photo);
+    } catch (e) {
+      print('KAYN ERROR');
+      print(e);
+    }
+
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    print(response.body);
+
+    var jsonResponse = convert.jsonDecode(response.body);
+    print(jsonResponse);
   }
 
   getcontact_data() async {
@@ -107,6 +129,8 @@ class _contatcState extends State<contatc> {
                     if (result != null) {
                       setState(() {
                         cv = File(result.files.single.path!);
+                        fileBytes = result.files.first.bytes;
+                        fileName = result.files.first.name;
                       });
                     } else {
                       // User canceled the picker
@@ -178,7 +202,8 @@ class _contatcState extends State<contatc> {
               onPressed: () async {
                 await showDialog(
                   context: context,
-                  builder: (context) => FutureProgressDialog(add_new_contact(),
+                  builder: (context) => FutureProgressDialog(
+                      add_new_contact_web(),
                       message: Text('Loading...')),
                 );
                 Navigator.of(context).pop();
