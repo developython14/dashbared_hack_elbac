@@ -31,7 +31,8 @@ class _contatcState extends State<contatc> {
     'url': '',
     'text_to_show': ''
   };
-  Uint8List? cv;
+  Uint8List? fileBytes;
+  String? fileName;
 
   Future<void> add_new_contact() async {
     final url = Uri.parse(Base_url + '/contacts/');
@@ -41,8 +42,8 @@ class _contatcState extends State<contatc> {
     request.fields.addAll(datatosend);
     final photo = http.MultipartFile.fromBytes(
       'icon_title',
-      cv as List<int>,
-      filename: 'free.jpg',
+      fileBytes!,
+      filename: fileName,
     );
     request.files.add(photo);
     var push = await request.send();
@@ -96,7 +97,8 @@ class _contatcState extends State<contatc> {
 
                     if (result != null) {
                       setState(() {
-                        cv = result.files.first.bytes;
+                        Uint8List? fileBytes = result.files.first.bytes;
+                        String fileName = result.files.first.name;
                       });
                     } else {
                       // User canceled the picker
