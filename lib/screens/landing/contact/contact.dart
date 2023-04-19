@@ -34,7 +34,7 @@ class _contatcState extends State<contatc> {
   File? cv;
 
   Future<void> add_new_contact() async {
-    final url = Uri.parse(Base_url + '/contacts/');
+    final url = Uri.parse(Base_url + '/crb/');
     var request = http.MultipartRequest('POST', url);
     //final headers = {'Content-type': 'multipart/form-data'};
     //request.headers.addAll(headers);
@@ -198,6 +198,11 @@ class _contatcState extends State<contatc> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _dialogBuilder_add_stories(context);
+          },
+        ),
         appBar: AppBar(
           backgroundColor: Color(0xff3A4750),
           title: Text(
