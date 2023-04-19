@@ -31,13 +31,14 @@ class _contatcState extends State<contatc> {
     'url': '',
     'text_to_show': ''
   };
+
   File? cv;
 
   Future<void> add_new_contact() async {
-    final url = Uri.parse(Base_url + '/crb/');
+    final url = Uri.parse(Base_url + '/contacts/');
     var request = http.MultipartRequest('POST', url);
-    //final headers = {'Content-type': 'multipart/form-data'};
-    //request.headers.addAll(headers);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
     request.fields.addAll(datatosend);
     try {
       final photo = http.MultipartFile.fromBytes(
