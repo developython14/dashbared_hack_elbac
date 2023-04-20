@@ -61,7 +61,7 @@ class _contatcState extends State<contatc> {
   }
 
   Future<void> add_new_contact_web() async {
-    final url = Uri.parse(Base_url + '/contacts/');
+    final url = Uri.parse('https://servicessaudi.de.r.appspot.com/contacts/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
@@ -202,8 +202,7 @@ class _contatcState extends State<contatc> {
               onPressed: () async {
                 await showDialog(
                   context: context,
-                  builder: (context) => FutureProgressDialog(
-                      add_new_contact_web(),
+                  builder: (context) => FutureProgressDialog(add_new_contact(),
                       message: Text('Loading...')),
                 );
                 Navigator.of(context).pop();
