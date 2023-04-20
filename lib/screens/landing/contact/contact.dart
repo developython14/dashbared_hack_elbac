@@ -52,10 +52,11 @@ class _contatcState extends State<contatc> {
       print('KAYN ERROR');
       print(e);
     }
+    print('hadi');
+    print(datatosend);
 
     var push = await request.send();
     var response = await http.Response.fromStream(push);
-    print(response.body);
 
     var jsonResponse = convert.jsonDecode(response.body);
     print(jsonResponse);
@@ -91,7 +92,7 @@ class _contatcState extends State<contatc> {
       var jsonResponse = convert.jsonDecode(response.body);
       setState(() {
         ref = jsonResponse['results'];
-        datatosend['order'] = jsonResponse['count'] + 1;
+        datatosend['order'] = (jsonResponse['count'] + 1).toString();
       });
     } else {
       print('Request failed with status: ${response.statusCode}.');
@@ -251,6 +252,7 @@ class _contatcState extends State<contatc> {
                       onReorder: (int oldIndex, int newIndex) {},
                       children: ref
                           .map((e) => contact_tile(
+                                id: e['id'].toString(),
                                 key: ValueKey(e['created']),
                                 title: e['title'],
                                 icon: e['icon_title'],
@@ -277,6 +279,7 @@ class _contatcState extends State<contatc> {
 
 class contact_tile extends StatefulWidget {
   contact_tile({
+    this.id = '',
     this.title = '',
     this.icon = '',
     this.url_to_show = '',
@@ -284,6 +287,7 @@ class contact_tile extends StatefulWidget {
     this.url = '',
     super.key,
   });
+  String id;
   String title;
   String icon;
   String url_to_show;
@@ -295,6 +299,17 @@ class contact_tile extends StatefulWidget {
 }
 
 class _contact_tileState extends State<contact_tile> {
+  Future<void> remove_contact(id) async {
+    final url =
+        Uri.parse('https://servicessaudi.de.r.appspot.com/contacts/' + id);
+    var request = http.MultipartRequest('DELETE', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    var jsonResponse = convert.jsonDecode(response.body);
+    print(jsonResponse);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -316,7 +331,15 @@ class _contact_tileState extends State<contact_tile> {
                 Icons.remove_circle,
                 color: Colors.red,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => FutureProgressDialog(
+                      remove_contact(widget.id),
+                      message: Text('Loading...')),
+                );
+                Navigator.of(context).pop();
+              },
             ),
           )),
         ],
