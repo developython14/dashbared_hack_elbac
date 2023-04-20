@@ -29,7 +29,8 @@ class _contatcState extends State<contatc> {
     'title': '',
     'type_url': '',
     'url': '',
-    'text_to_show': ''
+    'text_to_show': '',
+    'order': ''
   };
 
   File? cv;
@@ -88,6 +89,8 @@ class _contatcState extends State<contatc> {
     var response = await http.get(test);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
+      print('hada date recived');
+      print(jsonResponse);
       setState(() {
         ref = jsonResponse['results'];
       });
@@ -273,7 +276,7 @@ class _contatcState extends State<contatc> {
   }
 }
 
-class contact_tile extends StatelessWidget {
+class contact_tile extends StatefulWidget {
   contact_tile({
     this.title = '',
     this.icon = '',
@@ -289,21 +292,26 @@ class contact_tile extends StatelessWidget {
   String url;
 
   @override
+  State<contact_tile> createState() => _contact_tileState();
+}
+
+class _contact_tileState extends State<contact_tile> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title),
+          Text(widget.title),
           Card(
               child: ListTile(
             onTap: () {
-              _launchUrl_url(url_type, url);
+              _launchUrl_url(widget.url_type, widget.url);
             },
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(icon),
+              backgroundImage: NetworkImage(widget.icon),
             ),
-            title: Text(url_to_show),
+            title: Text(widget.url_to_show),
             trailing: IconButton(
               icon: Icon(
                 Icons.remove_circle,
