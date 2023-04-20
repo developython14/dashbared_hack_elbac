@@ -37,7 +37,7 @@ class _contatcState extends State<contatc> {
   String? fileName;
 
   Future<void> add_new_contact() async {
-    final url = Uri.parse(Base_url + '/contacts/');
+    final url = Uri.parse('https://servicessaudi.de.r.appspot.com/contacts/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
