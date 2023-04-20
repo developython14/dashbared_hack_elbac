@@ -300,14 +300,14 @@ class contact_tile extends StatefulWidget {
 
 class _contact_tileState extends State<contact_tile> {
   Future<void> remove_contact(id) async {
-    final url =
-        Uri.parse('https://servicessaudi.de.r.appspot.com/contacts/' + id);
-    var request = http.MultipartRequest('DELETE', url);
-    final headers = {'Content-type': 'multipart/form-data'};
-    var push = await request.send();
-    var response = await http.Response.fromStream(push);
-    var jsonResponse = convert.jsonDecode(response.body);
-    print(jsonResponse);
+    final url = Uri.parse(
+        'https://servicessaudi.de.r.appspot.com/contacts/' + id + '/');
+    var response = await http.delete(url);
+    if (response.statusCode == 204) {
+      setState(() {});
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
   }
 
   @override
