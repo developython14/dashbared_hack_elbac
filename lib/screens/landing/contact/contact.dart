@@ -89,10 +89,9 @@ class _contatcState extends State<contatc> {
     var response = await http.get(test);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      print('hada date recived');
-      print(jsonResponse);
       setState(() {
         ref = jsonResponse['results'];
+        datatosend['order'] = jsonResponse['count'] + 1;
       });
     } else {
       print('Request failed with status: ${response.statusCode}.');
