@@ -254,11 +254,16 @@ class _contatcState extends State<contatc> {
                   height: 800,
                   child: ReorderableListView(
                       onReorder: (int oldIndex, int newIndex) {
+                        if (updated_order == false) {
+                          setState(() {
+                            updated_order = true;
+                          });
+                        }
                         setState(() {
                           if (oldIndex < newIndex) {
                             newIndex -= 1;
                           }
-                          final int item = ref.removeAt(oldIndex);
+                          final int item = ref.removeAt(ref[oldIndex]);
                           ref.insert(newIndex, item);
                         });
                       },
