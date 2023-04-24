@@ -25,6 +25,7 @@ class contatc extends StatefulWidget {
 
 class _contatcState extends State<contatc> {
   List ref = [];
+  bool updated_order = false;
   final datatosend = {
     'title': '',
     'type_url': '',
@@ -132,8 +133,6 @@ class _contatcState extends State<contatc> {
                     if (result != null) {
                       setState(() {
                         cv = File(result.files.single.path!);
-                        fileBytes = result.files.first.bytes;
-                        fileName = result.files.first.name;
                       });
                     } else {
                       // User canceled the picker
@@ -239,6 +238,11 @@ class _contatcState extends State<contatc> {
           title: Text(
             ' اتصل بنا',
           ),
+          actions: [
+            updated_order
+                ? ElevatedButton(onPressed: () {}, child: Text('save changes'))
+                : Text('')
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -249,7 +253,19 @@ class _contatcState extends State<contatc> {
                 SizedBox(
                   height: 800,
                   child: ReorderableListView(
-                      onReorder: (int oldIndex, int newIndex) {},
+                      onReorder: (int oldIndex, int newIndex) {
+                        if (updated_order == false) {
+                          setState(() {
+                            updated_order = true;
+
+                            if (oldIndex < newIndex) {
+                              newIndex -= 1;
+                            }
+                            final int item = ref.removeAt(oldIndex);
+                            ref.insert(newIndex, item);
+                          });
+                        }
+                      },
                       children: ref
                           .map((e) => contact_tile(
                                 id: e['id'].toString(),
@@ -263,7 +279,7 @@ class _contatcState extends State<contatc> {
                           .toList()),
                 ),
                 ElevatedButton(
-                  child: Text('add_newfkrjkdljfkdadfslj'),
+                  child: Text('add'),
                   onPressed: () {
                     _dialogBuilder_add_stories(context);
                   },
@@ -338,7 +354,6 @@ class _contact_tileState extends State<contact_tile> {
                       remove_contact(widget.id),
                       message: Text('Loading...')),
                 );
-                Navigator.of(context).pop();
               },
             ),
           )),
