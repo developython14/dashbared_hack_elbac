@@ -259,12 +259,16 @@ class _contatcState extends State<contatc> {
                             updated_order = true;
                           });
                         }
+
                         setState(() {
                           if (oldIndex < newIndex) {
                             newIndex -= 1;
                           }
-                          final int item = ref.removeAt(ref[oldIndex]);
-                          ref.insert(newIndex, item);
+                          final _item = ref[oldIndex];
+                          final int item = ref.removeAt(oldIndex);
+                          ref.insert(newIndex, _item);
+                          print('after task ref');
+                          print(ref);
                         });
                       },
                       children: ref
