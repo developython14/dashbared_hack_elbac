@@ -257,14 +257,15 @@ class _contatcState extends State<contatc> {
                         if (updated_order == false) {
                           setState(() {
                             updated_order = true;
-
-                            if (oldIndex < newIndex) {
-                              newIndex -= 1;
-                            }
-                            final int item = ref.removeAt(oldIndex);
-                            ref.insert(newIndex, item);
                           });
                         }
+                        setState(() {
+                          if (oldIndex < newIndex) {
+                            newIndex -= 1;
+                          }
+                          final int item = ref.removeAt(oldIndex);
+                          ref.insert(newIndex, item);
+                        });
                       },
                       children: ref
                           .map((e) => contact_tile(
