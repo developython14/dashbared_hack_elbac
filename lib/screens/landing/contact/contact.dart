@@ -63,6 +63,19 @@ class _contatcState extends State<contatc> {
     print(jsonResponse);
   }
 
+  Future<void> edit_contact_order(conatact_id, item) async {
+    final url = Uri.parse(
+        'https://servicessaudi.de.r.appspot.com/contacts/' + conatact_id + '/');
+    var request = http.MultipartRequest('PATCH', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
+    request.fields.addAll(item);
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+
+    var jsonResponse = convert.jsonDecode(response.body);
+  }
+
   Future<void> add_new_contact_web() async {
     final url = Uri.parse('https://servicessaudi.de.r.appspot.com/contacts/');
     var request = http.MultipartRequest('POST', url);
@@ -84,6 +97,20 @@ class _contatcState extends State<contatc> {
 
     var jsonResponse = convert.jsonDecode(response.body);
     print(jsonResponse);
+  }
+
+  save_the_new_order() async {
+    for (var element in ref) {
+      element['order'] = ref.indexOf(element);
+      ref.forEach((item) => item..remove("icon_title"));
+    }
+  }
+
+  send_the_new_order() async {
+    for (var element in ref) {
+      final id = element['id'];
+      edit_contact_order(id, element);
+    }
   }
 
   getcontact_data() async {
@@ -216,6 +243,11 @@ class _contatcState extends State<contatc> {
     );
   }
 
+  compelete_order_contact() async {
+    await save_the_new_order();
+    await send_the_new_order();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -240,7 +272,16 @@ class _contatcState extends State<contatc> {
           ),
           actions: [
             updated_order
-                ? ElevatedButton(onPressed: () {}, child: Text('save changes'))
+                ? ElevatedButton(
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) => FutureProgressDialog(
+                            compelete_order_contact(),
+                            message: Text('Loading...')),
+                      );
+                    },
+                    child: Text('save changes'))
                 : Text('')
           ],
         ),
@@ -265,10 +306,8 @@ class _contatcState extends State<contatc> {
                             newIndex -= 1;
                           }
                           final _item = ref[oldIndex];
-                          final int item = ref.removeAt(oldIndex);
-                          ref.insert(newIndex, _item);
-                          print('after task ref');
-                          print(ref);
+                          final item = ref.removeAt(oldIndex);
+                          ref.insert(newIndex, item);
                         });
                       },
                       children: ref
