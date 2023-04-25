@@ -73,8 +73,6 @@ class _contatcState extends State<contatc> {
     request.fields.addAll(item);
     var push = await request.send();
     var response = await http.Response.fromStream(push);
-    print('hadi response freorer');
-    print(response.body);
     var jsonResponse = convert.jsonDecode(response.body);
   }
 
@@ -275,8 +273,8 @@ class _contatcState extends State<contatc> {
           actions: [
             updated_order
                 ? ElevatedButton(
-                    onPressed: () async {
-                      await showDialog(
+                    onPressed: () {
+                      showDialog(
                         context: context,
                         builder: (context) => FutureProgressDialog(
                             compelete_order_contact(),
@@ -329,7 +327,17 @@ class _contatcState extends State<contatc> {
                   onPressed: () {
                     _dialogBuilder_add_stories(context);
                   },
-                )
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => FutureProgressDialog(
+                            compelete_order_contact(),
+                            message: Text('Loading...')),
+                      );
+                    },
+                    child: Text('save changes'))
               ],
             ),
           ),
