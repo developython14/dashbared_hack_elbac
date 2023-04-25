@@ -243,9 +243,10 @@ class _contatcState extends State<contatc> {
     );
   }
 
-  compelete_order_contact() async {
+  Future<void> compelete_order_contact() async {
     await save_the_new_order();
     await send_the_new_order();
+    await Future.delayed(Duration(seconds: 2));
   }
 
   @override
@@ -273,8 +274,8 @@ class _contatcState extends State<contatc> {
           actions: [
             updated_order
                 ? ElevatedButton(
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      await showDialog(
                         context: context,
                         builder: (context) => FutureProgressDialog(
                             compelete_order_contact(),
@@ -327,17 +328,7 @@ class _contatcState extends State<contatc> {
                   onPressed: () {
                     _dialogBuilder_add_stories(context);
                   },
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => FutureProgressDialog(
-                            compelete_order_contact(),
-                            message: Text('Loading...')),
-                      );
-                    },
-                    child: Text('save changes'))
+                )
               ],
             ),
           ),
