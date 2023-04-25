@@ -69,10 +69,12 @@ class _contatcState extends State<contatc> {
     var request = http.MultipartRequest('PATCH', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
+
     request.fields.addAll(item);
     var push = await request.send();
     var response = await http.Response.fromStream(push);
-
+    print('hadi response');
+    print(response.body);
     var jsonResponse = convert.jsonDecode(response.body);
   }
 
@@ -96,20 +98,20 @@ class _contatcState extends State<contatc> {
     print(response.body);
 
     var jsonResponse = convert.jsonDecode(response.body);
-    print(jsonResponse);
   }
 
   save_the_new_order() async {
     for (var element in ref) {
-      element['order'] = ref.indexOf(element);
+      element['order'] = ref.indexOf(element).toString();
       ref.forEach((item) => item..remove("icon_title"));
     }
   }
 
   send_the_new_order() async {
     for (var element in ref) {
-      final id = element['id'];
-      edit_contact_order(id, element);
+      final id = element['id'].toString();
+      final resource = {'order': element['order'].toString()};
+      edit_contact_order(id, resource);
     }
   }
 
