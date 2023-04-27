@@ -246,7 +246,6 @@ class _contatcState extends State<contatc> {
   Future<void> compelete_order_contact() async {
     await save_the_new_order();
     await send_the_new_order();
-    await Future.delayed(Duration(seconds: 2));
   }
 
   @override
