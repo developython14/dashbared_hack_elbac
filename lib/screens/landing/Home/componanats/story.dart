@@ -138,18 +138,25 @@ class _MoreStoriesState extends State<MoreStories> {
     for (var e in ref) {
       print('allo');
       print(lookupMimeType(e));
+      print(lookupMimeType(e) == 'image/jpeg');
     }
     return Scaffold(
       body: StoryView(
-        storyItems: ref
-            .map(
-              (e) => StoryItem.pageVideo(
-                'https://storage.googleapis.com/bacdz/test.mp4',
-                caption: "Still sampling",
-                controller: storyController,
-              ),
-            )
-            .toList(),
+        storyItems: ref.map(
+          (e) {
+            return lookupMimeType(e)!.substring(0, 5) != 'image'
+                ? StoryItem.pageVideo(
+                    e,
+                    caption: "Still sampling",
+                    controller: storyController,
+                  )
+                : StoryItem.pageImage(
+                    url: e,
+                    caption: "Still sampling",
+                    controller: storyController,
+                  );
+          },
+        ).toList(),
         onStoryShow: (s) {},
         onComplete: () {},
         progressPosition: ProgressPosition.top,
