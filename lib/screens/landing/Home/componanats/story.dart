@@ -136,6 +136,7 @@ class _MoreStoriesState extends State<MoreStories> {
   Widget build(BuildContext context) {
     List ref = context.watch<Storiesproviderd>().selected_lis[0]['files'];
     for (var e in ref) {
+      print('allo');
       print(lookupMimeType(e));
     }
     return Scaffold(
