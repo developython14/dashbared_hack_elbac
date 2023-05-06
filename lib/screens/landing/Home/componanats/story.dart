@@ -26,12 +26,12 @@ class storybutton extends StatefulWidget {
 
 class _storybuttonState extends State<storybutton> {
   Future<void> remove_story(id) async {
-    final url = Uri.parse('https://servicessaudi.de.r.appspot.com/post_pubs/');
+    final url =
+        Uri.parse('https://servicessaudi.de.r.appspot.com/remove_stories/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
-    request.fields.addAll({'url': 'pub_link'});
-
+    request.fields.addAll({'id': id.toString()});
     var push = await request.send();
     var response = await http.Response.fromStream(push);
     print(response.body);
@@ -70,6 +70,7 @@ class _storybuttonState extends State<storybutton> {
                   builder: (context) => FutureProgressDialog(remove_story(id),
                       message: Text('Loading...')),
                 );
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -101,7 +102,7 @@ class _storybuttonState extends State<storybutton> {
             Text(widget.title.toString()),
             IconButton(
                 onPressed: () {
-                  context.read<Storiesproviderd>().set_id_Stories(widget.id);
+                  context.read<Storiesproviderd>().set_id_for_remove(widget.id);
                   _dialogBuilder_remove_story(context);
                 },
                 icon: Icon(

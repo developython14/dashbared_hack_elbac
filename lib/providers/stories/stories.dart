@@ -19,8 +19,6 @@ class Storiesproviderd with ChangeNotifier, DiagnosticableTreeMixin {
   int get id => _id;
   Future<void> getallstories() async {
     _list_stories = await getdata();
-    print('HADO HOMA LES STORE');
-    print(_list_stories);
     _status = 'loaded';
 
     notifyListeners();
@@ -28,6 +26,11 @@ class Storiesproviderd with ChangeNotifier, DiagnosticableTreeMixin {
 
   set_id_Stories(id) async {
     _id = id;
+    notifyListeners();
+  }
+
+  set_id_for_remove(id) async {
+    __removed_id_stories = id;
     notifyListeners();
   }
 
