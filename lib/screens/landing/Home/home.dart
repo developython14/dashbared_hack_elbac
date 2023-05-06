@@ -57,16 +57,16 @@ class _HomeState extends State<Home> {
     var jsonResponse = convert.jsonDecode(response.body);
   }
 
-  Future<void> add_new_story(files) async {
+  Future<void> add_new_story() async {
     final url =
         Uri.parse('https://servicessaudi.de.r.appspot.com/post_stories/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
-    request.fields.addAll({'title': story_name_to_insert});
+    request.fields.addAll({'title': story_name_to_insert, 'order': '2'});
     try {
       final photo = http.MultipartFile.fromBytes(
-          'page_de_gard', await cv!.readAsBytes(),
+          'page_de_gard', await story_garde_to_insert!.readAsBytes(),
           filename: story_garde_to_insert!.path.split("/").last);
       request.files.add(photo);
     } catch (e) {
@@ -174,8 +174,12 @@ class _HomeState extends State<Home> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child: const Text('إضافة '),
-              onPressed: () {
-                Navigator.of(context).pop();
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => FutureProgressDialog(add_new_story(),
+                      message: Text('Loading...')),
+                );
               },
             ),
           ],
