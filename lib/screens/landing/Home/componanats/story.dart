@@ -145,8 +145,6 @@ class _MoreStoriesState extends State<MoreStories> {
   @override
   Widget build(BuildContext context) {
     List ref = context.watch<Storiesproviderd>().selected_lis[0]['files'];
-    print('hadi ref');
-    print(ref);
     return Scaffold(
       body: StoryView(
         storyItems: ref.map(
