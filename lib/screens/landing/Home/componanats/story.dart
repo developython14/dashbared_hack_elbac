@@ -145,19 +145,19 @@ class _MoreStoriesState extends State<MoreStories> {
   @override
   Widget build(BuildContext context) {
     List ref = context.watch<Storiesproviderd>().selected_lis[0]['files'];
+    print('hadi ref');
+    print(ref);
     return Scaffold(
       body: StoryView(
         storyItems: ref.map(
           (e) {
-            return lookupMimeType(e)!.substring(0, 5) != 'image'
+            return lookupMimeType(e['url'])!.substring(0, 5) != 'image'
                 ? StoryItem.pageVideo(
-                    e,
-                    caption: "Still sampling",
+                    e['url'],
                     controller: storyController,
                   )
                 : StoryItem.pageImage(
-                    url: e,
-                    caption: "Still sampling",
+                    url: e['url'],
                     controller: storyController,
                   );
           },
