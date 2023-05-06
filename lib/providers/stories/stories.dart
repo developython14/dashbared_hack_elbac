@@ -10,12 +10,17 @@ class Storiesproviderd with ChangeNotifier, DiagnosticableTreeMixin {
   String _status = 'idle';
   List _list_stories = [];
   int _id = 0;
-
+  int __removed_id_stories = 0;
+  int get removed_id_stories => __removed_id_stories;
   List get list_stories => _list_stories;
+  List get selected_lis =>
+      _list_stories.where((element) => element['id'] == _id).toList();
   String get status => _status;
   int get id => _id;
   Future<void> getallstories() async {
     _list_stories = await getdata();
+    print('HADO HOMA LES STORE');
+    print(_list_stories);
     _status = 'loaded';
 
     notifyListeners();
@@ -42,6 +47,7 @@ Future<List> getdata() async {
     for (var i = 0; i < jsonResponse.length; i++) {
       articles.add(jsonResponse[i]);
     }
+
     return articles;
   } else {
     print('Request failed with status: ${response.statusCode}.');
