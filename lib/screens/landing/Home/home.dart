@@ -1,9 +1,23 @@
+import 'package:dashboared_hakelbac/providers/stories/pubs.dart';
+import 'package:dashboared_hakelbac/providers/stories/stories.dart';
 import 'package:flutter/material.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/componanats/levels.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/componanats/story.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
+import 'package:future_progress_dialog/future_progress_dialog.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+Future<void> _launchUrl_web(url) async {
+  final Uri website = Uri.parse(url);
+  if (!await launchUrl(website)) {
+    throw 'Could not launch $website';
+  }
+}
 
 class Home extends StatefulWidget {
   const Home({
@@ -15,7 +29,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String pub_link = '';
   File? cv;
+
+  Future<void> add_new_pub_post() async {
+    final url = Uri.parse('https://servicessaudi.de.r.appspot.com/post_pubs/');
+    var request = http.MultipartRequest('POST', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
+    request.fields.addAll({'url': pub_link});
+    try {
+      final photo = http.MultipartFile.fromBytes(
+          'image', await cv!.readAsBytes(),
+          filename: cv!.path.split("/").last);
+      request.files.add(photo);
+    } catch (e) {
+      print('KAYN ERROR');
+      print(e);
+    }
+
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    print(response.body);
+
+    var jsonResponse = convert.jsonDecode(response.body);
+  }
+
   Future<void> _dialogBuilder_add_stories(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -173,6 +212,11 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    pub_link = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'Link of redirection'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -188,7 +232,9 @@ class _HomeState extends State<Home> {
                       await FilePicker.platform.pickFiles();
 
                   if (result != null) {
-                    setState(() {});
+                    setState(() {
+                      cv = File(result.files.single.path!);
+                    });
                   } else {
                     // User canceled the picker
                   }
@@ -212,8 +258,12 @@ class _HomeState extends State<Home> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child: const Text('Confirm '),
-              onPressed: () {
-                Navigator.of(context).pop();
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => FutureProgressDialog(add_new_pub_post(),
+                      message: Text('Loading...')),
+                );
               },
             ),
           ],
@@ -451,11 +501,19 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var items = [
-      Image.network(
-          'https://th.bing.com/th/id/OIP.ejJwy93WhLu6uCZ32Y8pCAHaDH?pid=ImgDet&rs=1'),
-    ];
-    var _items = [1, 2, 3, 4, 5, 6];
+    var items = context
+        .watch<Pubsproviderd>()
+        .list_pubs
+        .map(
+          (e) => GestureDetector(
+            onTap: () {
+              _launchUrl_web(e['url']);
+            },
+            child: Image.network(
+                'https://storage.googleapis.com/bacdz/' + e['image_de_garde']),
+          ),
+        )
+        .toList();
     final hei = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
         child: Padding(
@@ -467,19 +525,32 @@ class _HomeState extends State<Home> {
             height: 150,
             child: ReorderableListView(
               scrollDirection: Axis.horizontal,
-              children: [
-                for (int index = 0; index < _items.length; index += 1)
-                  storybutton(
-                    key: ValueKey(index),
-                  ),
-              ],
+              children: context
+                  .watch<Storiesproviderd>()
+                  .list_stories
+                  .map((e) => storybutton(
+                        key: ValueKey(e['id']),
+                        title: e['title'],
+                        cover_image: e['page_de_garde'] == ''
+                            ? e['files'][0]
+                            : 'https://storage.googleapis.com/bacdz/' +
+                                e['page_de_garde'],
+                        id: e['id'],
+                      ))
+                  .toList(),
               onReorder: (oldIndex, newIndex) {
                 setState(() {
                   if (oldIndex < newIndex) {
                     newIndex -= 1;
                   }
-                  final int item = _items.removeAt(oldIndex);
-                  _items.insert(newIndex, item);
+                  final int item = context
+                      .watch<Storiesproviderd>()
+                      .list_stories
+                      .removeAt(oldIndex);
+                  context
+                      .watch<Storiesproviderd>()
+                      .list_stories
+                      .insert(newIndex, item);
                 });
               },
             ),
@@ -566,8 +637,8 @@ class _HomeState extends State<Home> {
                   if (oldIndex < newIndex) {
                     newIndex -= 1;
                   }
-                  final int item = _items.removeAt(oldIndex);
-                  _items.insert(newIndex, item);
+                  //final int item = _items.removeAt(oldIndex);
+                  //_items.insert(newIndex, item);
                 });
               },
             ),

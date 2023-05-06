@@ -1,10 +1,20 @@
+import 'package:dashboared_hakelbac/providers/stories/stories.dart';
 import 'package:flutter/material.dart';
+import 'package:dashboared_hakelbac/providers/stories/stories.dart';
 import 'package:story_view/story_view.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
 
 class storybutton extends StatelessWidget {
-  const storybutton({
+  storybutton({
+    this.title = '',
+    this.cover_image = '',
+    this.id = 0,
     Key? key,
   }) : super(key: key);
+  String? title;
+  String? cover_image;
+  int? id;
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +32,15 @@ class storybutton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50),
                   color: Colors.black,
                   image: DecorationImage(
-                      image: NetworkImage(
-                          "https://image.ibb.co/cU4WGx/Omotuo-Groundnut-Soup-braperucci-com-1.jpg"),
+                      image: NetworkImage(cover_image.toString()),
                       fit: BoxFit.cover),
                   // button text
                 )),
-            Text('النجاح 🤝🤝')
+            Text(title.toString())
           ],
         ),
         onTap: () {
+          context.read<Storiesproviderd>().set_id_Stories(id);
           Navigator.pushNamed(context, '/stories');
           ;
         });
@@ -53,50 +63,22 @@ class _MoreStoriesState extends State<MoreStories> {
 
   @override
   Widget build(BuildContext context) {
+    List ref = context
+        .watch<Storiesproviderd>()
+        .list_stories[context.watch<Storiesproviderd>().id]['files'];
     return Scaffold(
       body: StoryView(
-        storyItems: [
-          StoryItem.text(
-            title: "I guess you'd love to see more of our food. That's great.",
-            backgroundColor: Colors.blue,
-          ),
-          StoryItem.text(
-            title: "Nice!\n\nTap to continue.",
-            backgroundColor: Colors.red,
-            textStyle: TextStyle(
-              fontFamily: 'Dancing',
-              fontSize: 40,
-            ),
-          ),
-          StoryItem.pageImage(
-            url:
-                "https://image.ibb.co/cU4WGx/Omotuo-Groundnut-Soup-braperucci-com-1.jpg",
-            caption: "Still sampling",
-            controller: storyController,
-          ),
-          StoryItem.pageImage(
-              url: "https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif",
-              caption: "Working with gifs",
-              controller: storyController),
-          StoryItem.pageImage(
-            url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
-            caption: "Hello, from the other side",
-            controller: storyController,
-          ),
-          StoryItem.pageImage(
-            url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
-            caption: "Hello, from the other side2",
-            controller: storyController,
-          ),
-          StoryItem.pageVideo('https://vimeo.com/807698541',
-              controller: storyController)
-        ],
-        onStoryShow: (s) {
-          print("Showing a story");
-        },
-        onComplete: () {
-          print("Completed a cycle");
-        },
+        storyItems: ref
+            .map(
+              (e) => StoryItem.pageVideo(
+                'https://assets.mixkit.co/videos/preview/mixkit-man-looks-for-a-tennis-ball-in-supermarket-49356-large.mp4',
+                caption: "Still sampling",
+                controller: storyController,
+              ),
+            )
+            .toList(),
+        onStoryShow: (s) {},
+        onComplete: () {},
         progressPosition: ProgressPosition.top,
         repeat: false,
         controller: storyController,

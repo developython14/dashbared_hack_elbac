@@ -17,7 +17,7 @@ class _paymentState extends State<payment> {
 
   getccpdata() async {
     print('start get data');
-    var test = Uri.parse(Base_url + 'ccp/3/');
+    var test = Uri.parse(Base_url + 'ccp/5/');
     var response = await http.get(test);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
@@ -32,7 +32,7 @@ class _paymentState extends State<payment> {
   }
 
   updateccp() async {
-    var test = Uri.parse(Base_url + 'ccp/3/');
+    var test = Uri.parse(Base_url + 'ccp/5/');
     var response = await http.put(test, body: {'title': current['title']});
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);

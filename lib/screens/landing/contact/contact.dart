@@ -117,7 +117,8 @@ class _contatcState extends State<contatc> {
     var test = Uri.parse(Base_url + 'contacts/');
     var response = await http.get(test);
     if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
+      var jsonResponse =
+          convert.jsonDecode(convert.utf8.decode(response.bodyBytes));
       setState(() {
         ref = jsonResponse['results'];
         datatosend['order'] = (jsonResponse['count'] + 1).toString();
