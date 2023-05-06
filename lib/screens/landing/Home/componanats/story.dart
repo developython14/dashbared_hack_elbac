@@ -108,6 +108,15 @@ class _storybuttonState extends State<storybutton> {
                 icon: Icon(
                   Icons.remove_circle,
                   color: Colors.red,
+                )),
+            IconButton(
+                onPressed: () {
+                  context.read<Storiesproviderd>().set_id_for_remove(widget.id);
+                  _dialogBuilder_remove_story(context);
+                },
+                icon: Icon(
+                  Icons.remove_circle,
+                  color: Colors.red,
                 ))
           ],
         ),
