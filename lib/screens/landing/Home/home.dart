@@ -115,6 +115,11 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    story_name_to_insert = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'اسم ستوري'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -123,6 +128,21 @@ class _HomeState extends State<Home> {
                   }
                   return null;
                 },
+              ),
+              GestureDetector(
+                onTap: () async {
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles(allowMultiple: true);
+
+                  if (result != null) {
+                    setState(() {
+                      story_garde_to_insert = File(result.files.single.path!);
+                    });
+                  } else {
+                    // User canceled the picker
+                  }
+                },
+                child: Text('story gard'),
               ),
               GestureDetector(
                 onTap: () async {
