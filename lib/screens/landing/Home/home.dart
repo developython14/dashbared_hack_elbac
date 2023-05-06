@@ -32,6 +32,7 @@ class _HomeState extends State<Home> {
   String pub_link = '';
   String story_name_to_insert = '';
   File? story_garde_to_insert;
+  List<File>? files_stories_added;
   File? cv;
 
   Future<void> add_new_pub_post() async {
@@ -72,6 +73,17 @@ class _HomeState extends State<Home> {
     } catch (e) {
       print('KAYN ERROR');
       print(e);
+    }
+    for (var el in files_stories_added!) {
+      try {
+        final photo = http.MultipartFile.fromBytes(
+            el.toString(), await el!.readAsBytes(),
+            filename: el!.path.split("/").last);
+        request.files.add(photo);
+      } catch (e) {
+        print('KAYN ERROR');
+        print(e);
+      }
     }
 
     var push = await request.send();
@@ -150,7 +162,10 @@ class _HomeState extends State<Home> {
                       await FilePicker.platform.pickFiles(allowMultiple: true);
 
                   if (result != null) {
-                    setState(() {});
+                    setState(() {
+                      files_stories_added =
+                          result.paths.map((path) => File(path!)).toList();
+                    });
                   } else {
                     // User canceled the picker
                   }
