@@ -108,9 +108,9 @@ class _edit_storiesState extends State<edit_stories> {
                     .map((e) => Card(
                           child: ListTile(
                             title: TextButton(
-                              child: Text(e),
+                              child: Text(e['url']),
                               onPressed: () {
-                                _launchUrl_web(e);
+                                _launchUrl_web(e['url']);
                               },
                             ),
                             dense: true,
