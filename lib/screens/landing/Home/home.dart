@@ -30,9 +30,58 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String pub_link = '';
+  String story_name_to_insert = '';
+  File? story_garde_to_insert;
   File? cv;
 
   Future<void> add_new_pub_post() async {
+    final url = Uri.parse('https://servicessaudi.de.r.appspot.com/post_pubs/');
+    var request = http.MultipartRequest('POST', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
+    request.fields.addAll({'url': pub_link});
+    try {
+      final photo = http.MultipartFile.fromBytes(
+          'image', await cv!.readAsBytes(),
+          filename: cv!.path.split("/").last);
+      request.files.add(photo);
+    } catch (e) {
+      print('KAYN ERROR');
+      print(e);
+    }
+
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    print(response.body);
+
+    var jsonResponse = convert.jsonDecode(response.body);
+  }
+
+  Future<void> add_new_story(files) async {
+    final url =
+        Uri.parse('https://servicessaudi.de.r.appspot.com/post_stories/');
+    var request = http.MultipartRequest('POST', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
+    request.fields.addAll({'title': story_name_to_insert});
+    try {
+      final photo = http.MultipartFile.fromBytes(
+          'page_de_gard', await cv!.readAsBytes(),
+          filename: story_garde_to_insert!.path.split("/").last);
+      request.files.add(photo);
+    } catch (e) {
+      print('KAYN ERROR');
+      print(e);
+    }
+
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    print(response.body);
+
+    var jsonResponse = convert.jsonDecode(response.body);
+  }
+
+  Future<void> remove_story(id) async {
     final url = Uri.parse('https://servicessaudi.de.r.appspot.com/post_pubs/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
