@@ -4,6 +4,7 @@ import 'package:dashboared_hakelbac/providers/content/content.dart';
 import 'package:dashboared_hakelbac/providers/device/device_info.dart';
 import 'package:dashboared_hakelbac/providers/stories/pubs.dart';
 import 'package:dashboared_hakelbac/providers/stories/stories.dart';
+import 'package:dashboared_hakelbac/screens/landing/Home/componanats/edit_stories.dart';
 import 'package:dashboared_hakelbac/screens/landing/adminstartion/list_student.dart';
 import 'package:dashboared_hakelbac/screens/landing/opinion/accepted.dart';
 import 'package:dashboared_hakelbac/screens/landing/opinion/requested.dart';
@@ -87,6 +88,7 @@ class _MyAppState extends State<MyApp> {
           '/profs': (context) => profs(),
           '/cours': (context) => Cours(),
           '/faq': (context) => faq(),
+          '/edit_stories': (context) => edit_stories(),
           '/requested_opinion': (context) => requested_opinion(),
           '/accepted_opinion': (context) => accepted_opinion(),
           '/change_photo': (context) => change_photo(),
