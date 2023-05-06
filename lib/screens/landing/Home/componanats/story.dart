@@ -112,11 +112,11 @@ class _storybuttonState extends State<storybutton> {
             IconButton(
                 onPressed: () {
                   context.read<Storiesproviderd>().set_id_for_remove(widget.id);
-                  _dialogBuilder_remove_story(context);
+                  Navigator.pushNamed(context, '/edit_stories');
                 },
                 icon: Icon(
-                  Icons.remove_circle,
-                  color: Colors.red,
+                  Icons.edit,
+                  color: Colors.grey,
                 ))
           ],
         ),
@@ -145,11 +145,6 @@ class _MoreStoriesState extends State<MoreStories> {
   @override
   Widget build(BuildContext context) {
     List ref = context.watch<Storiesproviderd>().selected_lis[0]['files'];
-    for (var e in ref) {
-      print('allo');
-      print(lookupMimeType(e));
-      print(lookupMimeType(e) == 'image/jpeg');
-    }
     return Scaffold(
       body: StoryView(
         storyItems: ref.map(

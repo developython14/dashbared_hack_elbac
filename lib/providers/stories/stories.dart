@@ -15,6 +15,9 @@ class Storiesproviderd with ChangeNotifier, DiagnosticableTreeMixin {
   List get list_stories => _list_stories;
   List get selected_lis =>
       _list_stories.where((element) => element['id'] == _id).toList();
+  List get editlis_stoires => _list_stories
+      .where((element) => element['id'] == __removed_id_stories)
+      .toList();
   String get status => _status;
   int get id => _id;
   Future<void> getallstories() async {
