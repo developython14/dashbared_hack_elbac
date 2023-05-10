@@ -16,7 +16,7 @@ class modules extends StatefulWidget {
 }
 
 class _modulesState extends State<modules> {
-  Future<void> add_new_filliere__() async {
+  Future<void> add_new_modules__() async {
     final url = Uri.parse(Base_url + 'post_filiere/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
@@ -24,8 +24,8 @@ class _modulesState extends State<modules> {
     request.fields.addAll({
       'order':
           context.watch<contenetproviderd>().selected_filier.length.toString(),
-      'title': title,
-      'abre': abrev,
+      'title': 'title',
+      'abre': 'abrev',
       'level_id':
           context.watch<contenetproviderd>().selected_levels_id.toString()
     });
@@ -49,7 +49,7 @@ class _modulesState extends State<modules> {
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height * 0.8,
                 child: ReorderableListView(
                   children: [
                     module_componant(
