@@ -27,8 +27,6 @@ class _modulesState extends State<modules> {
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
     request.fields.addAll({
-      'order':
-          context.watch<contenetproviderd>().selected_filier.length.toString(),
       'title': title,
       'filiere_id':
           context.watch<contenetproviderd>().selected_levels_id.toString()
@@ -42,7 +40,8 @@ class _modulesState extends State<modules> {
       print('KAYN ERROR');
       print(e);
     }
-
+    print('hado files');
+    print(request.files);
     var push = await request.send();
     var response = await http.Response.fromStream(push);
     var jsonResponse = convert.jsonDecode(response.body);
@@ -122,6 +121,8 @@ class _modulesState extends State<modules> {
   @override
   Widget build(BuildContext context) {
     final hei = MediaQuery.of(context).size.height;
+    print('hadi');
+    print(context.watch<contenetproviderd>().selected_levels_id.toString());
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
