@@ -18,7 +18,6 @@ import 'package:dashboared_hakelbac/screens/landing/filliers/filliers.dart';
 import 'package:dashboared_hakelbac/screens/landing/landing.dart';
 import 'package:dashboared_hakelbac/screens/landing/login/login.dart';
 import 'package:dashboared_hakelbac/screens/landing/modules/modules.dart';
-import 'package:dashboared_hakelbac/screens/landing/profs/profs.dart';
 import 'package:dashboared_hakelbac/screens/landing/signup/signup.dart';
 import 'package:dashboared_hakelbac/screens/landing/test.dart';
 import 'package:palestine_trusted_device/palestine_trusted_device.dart';
@@ -85,7 +84,6 @@ class _MyAppState extends State<MyApp> {
           '/signup': (context) => MyRegister(),
           '/filieres': (context) => filliers(),
           '/modules': (context) => modules(),
-          '/profs': (context) => profs(),
           '/cours': (context) => Cours(),
           '/faq': (context) => faq(),
           '/edit_stories': (context) => edit_stories(),

@@ -14,11 +14,11 @@ class Cours extends StatefulWidget {
 
 class _CoursState extends State<Cours> {
   final _headerStyle = const TextStyle(
-      color: Color(0xffffffff), fontSize: 15, fontWeight: FontWeight.bold);
+      color: Color(0xffffffff), fontSize: 10, fontWeight: FontWeight.bold);
   final _contentStyleHeader = const TextStyle(
-      color: Color(0xff999999), fontSize: 14, fontWeight: FontWeight.w700);
+      color: Color(0xff999999), fontSize: 10, fontWeight: FontWeight.w700);
   final _contentStyle = const TextStyle(
-      color: Color(0xff999999), fontSize: 14, fontWeight: FontWeight.normal);
+      color: Color(0xff999999), fontSize: 10, fontWeight: FontWeight.normal);
   late final PodPlayerController controller;
 
   @override
@@ -138,12 +138,6 @@ class chaipte extends StatelessWidget {
           headerBackgroundColorOpened: Colors.black,
           header: Row(
             children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.edit_document,
-                    color: Colors.grey,
-                  )),
               IconButton(
                   onPressed: () {},
                   icon: Icon(

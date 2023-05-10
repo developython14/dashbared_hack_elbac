@@ -122,8 +122,8 @@ class _modulesState extends State<modules> {
   Widget build(BuildContext context) {
     final hei = MediaQuery.of(context).size.height;
     print('hadi');
-    print(context.watch<contenetproviderd>().selected_filier);
     print(context.watch<contenetproviderd>().selected_modules);
+    print('hadi hya');
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
@@ -140,12 +140,11 @@ class _modulesState extends State<modules> {
                       .watch<contenetproviderd>()
                       .selected_modules
                       .map((e) => module_componant(
-                            key: ValueKey('free'),
+                            key: ValueKey(e['id']),
                             hei: hei,
-                            title: 'العلوم الفيزيائية',
-                            abre:
-                                'https://2as.ency-education.com/uploads/1/0/9/0/1090282/icon-new-english_orig.png',
-                            path: '/profs',
+                            title: e['title'],
+                            abre: Base_url + e['icon_title'],
+                            path: '/cours',
                           ))
                       .toList(),
                   onReorder: (oldIndex, newIndex) {},
