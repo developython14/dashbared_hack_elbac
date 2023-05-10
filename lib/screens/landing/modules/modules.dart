@@ -8,6 +8,7 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'dart:math' as math;
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 
 class modules extends StatefulWidget {
   const modules({Key? key}) : super(key: key);
@@ -32,6 +33,16 @@ class _modulesState extends State<modules> {
       'filiere_id':
           context.watch<contenetproviderd>().selected_levels_id.toString()
     });
+    try {
+      final photo = http.MultipartFile.fromBytes(
+          'icon_title', await cv!.readAsBytes(),
+          filename: cv!.path.split("/").last);
+      request.files.add(photo);
+    } catch (e) {
+      print('KAYN ERROR');
+      print(e);
+    }
+
     var push = await request.send();
     var response = await http.Response.fromStream(push);
 
@@ -63,6 +74,20 @@ class _modulesState extends State<modules> {
                   return null;
                 },
               ),
+              ElevatedButton(
+                  onPressed: () async {
+                    FilePickerResult? result =
+                        await FilePicker.platform.pickFiles();
+
+                    if (result != null) {
+                      setState(() {
+                        cv = File(result.files.single.path!);
+                      });
+                    } else {
+                      // User canceled the picker
+                    }
+                  },
+                  child: Text('chose icon'))
             ],
           )),
           actions: <Widget>[
