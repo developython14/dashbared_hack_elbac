@@ -1,8 +1,11 @@
+import 'package:dashboared_hakelbac/providers/content/content.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class levels_componant extends StatelessWidget {
   const levels_componant({
     Key? key,
+    this.id = '',
     this.title = 'sala',
     this.color = Colors.red,
     this.abre = 'rem',
@@ -11,6 +14,7 @@ class levels_componant extends StatelessWidget {
   }) : super(key: key);
 
   final double hei;
+  final String id;
   final String title;
   final Color color;
   final String abre;
@@ -20,6 +24,7 @@ class levels_componant extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        context.watch<contenetproviderd>().set_levels_id(id);
         Navigator.pushNamed(context, path);
       },
       child: Padding(

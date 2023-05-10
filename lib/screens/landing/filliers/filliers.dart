@@ -1,5 +1,7 @@
+import 'package:dashboared_hakelbac/providers/content/content.dart';
 import 'package:flutter/material.dart';
 import 'package:dashboared_hakelbac/screens/landing/Home/componanats/levels.dart';
+import 'package:provider/provider.dart';
 
 class filliers extends StatefulWidget {
   const filliers({Key? key}) : super(key: key);
@@ -24,32 +26,20 @@ class _filliersState extends State<filliers> {
               Container(
                 height: MediaQuery.of(context).size.height,
                 child: ReorderableListView(
-                  children: [
-                    levels_componant(
-                      key: ValueKey('free'),
-                      hei: hei,
-                      title: 'علوم تجريبية',
-                      color: Colors.green,
-                      abre: '3ass',
-                      path: '/modules',
-                    ),
-                    levels_componant(
-                      key: ValueKey('erfe'),
-                      hei: hei,
-                      title: 'علوم تجريبية',
-                      color: Colors.green,
-                      abre: '3ass',
-                      path: '/modules',
-                    ),
-                    levels_componant(
-                      key: ValueKey('free23'),
-                      hei: hei,
-                      title: 'علوم تجريبية',
-                      color: Colors.green,
-                      abre: '3ass',
-                      path: '/modules',
-                    )
-                  ],
+                  children: context
+                      .watch<contenetproviderd>()
+                      .selected_filier
+                      .map(
+                        (e) => levels_componant(
+                          key: ValueKey('free'),
+                          hei: hei,
+                          title: 'علوم تجريبية',
+                          color: Colors.green,
+                          abre: '3ass',
+                          path: '/modules',
+                        ),
+                      )
+                      .toList(),
                   onReorder: (oldIndex, newIndex) {},
                 ),
               ),

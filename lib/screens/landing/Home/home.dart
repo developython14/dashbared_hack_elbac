@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:math' as math;
 
 Future<void> _launchUrl_web(url) async {
   final Uri website = Uri.parse(url);
@@ -736,7 +737,9 @@ class _HomeState extends State<Home> {
                         key: ValueKey(e['id']),
                         hei: hei,
                         title: e['title'],
-                        color: Color.fromARGB(255, 217, 72, 62),
+                        color: Color(
+                                (math.Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(1.0),
                         abre: e['abre'],
                         path: '/filieres',
                       ))

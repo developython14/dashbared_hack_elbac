@@ -10,10 +10,26 @@ class contenetproviderd with ChangeNotifier, DiagnosticableTreeMixin {
   String _status = 'idle';
   List _list_contenet = [];
   int _id = 0;
+  int _seletced_filliere_id = 0;
+  int _seletced_modules_id = 0;
+  int _selected_levels_id = 0;
 
   List get list_contenet => _list_contenet;
+  List get selected_filier => _list_contenet
+      .where((element) => element['id'] == _selected_levels_id)
+      .toList();
+
   String get status => _status;
   int get id => _id;
+  int get selected_fielere_id => _seletced_filliere_id;
+  int get selected_modules_id => _seletced_modules_id;
+  int get selected_levels_id => _selected_levels_id;
+
+  Future<void> set_levels_id(id) async {
+    _selected_levels_id = id;
+    notifyListeners();
+  }
+
   Future<void> getallcontenet() async {
     _list_contenet = await getdata();
     _status = 'loaded';
