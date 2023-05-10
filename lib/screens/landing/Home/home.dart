@@ -731,17 +731,25 @@ class _HomeState extends State<Home> {
             height: 800,
             child: ReorderableListView(
               children: context
-                  .watch<contenetproviderd>()
+                  .read<contenetproviderd>()
                   .list_contenet
-                  .map((e) => levels_componant(
+                  .map((e) => GestureDetector(
                         key: ValueKey(e['id']),
-                        hei: hei,
-                        title: e['title'],
-                        color: Color(
-                                (math.Random().nextDouble() * 0xFFFFFF).toInt())
-                            .withOpacity(1.0),
-                        abre: e['abre'],
-                        path: '/filieres',
+                        onTap: () {
+                          context
+                              .read<contenetproviderd>()
+                              .set_levels_id(e['id']);
+                          Navigator.pushNamed(context, '/filieres');
+                        },
+                        child: levels_componant(
+                          hei: hei,
+                          title: e['title'],
+                          color: Color((math.Random().nextDouble() * 0xFFFFFF)
+                                  .toInt())
+                              .withOpacity(1.0),
+                          abre: e['abre'],
+                          path: '/filieres',
+                        ),
                       ))
                   .toList(),
               onReorder: (oldIndex, newIndex) {

@@ -22,48 +22,42 @@ class levels_componant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        context.watch<contenetproviderd>().set_levels_id(id);
-        Navigator.pushNamed(context, path);
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                height: 80,
-                child: Center(
-                  child: Text(
-                    title,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-              ),
-            ),
-            Container(
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
               decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
               ),
               height: 80,
-              width: hei * 0.075,
               child: Center(
                 child: Text(
-                  abre,
-                  style: TextStyle(color: Colors.white),
+                  title,
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10)),
+            ),
+            height: 80,
+            width: hei * 0.075,
+            child: Center(
+              child: Text(
+                abre,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

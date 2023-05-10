@@ -17,7 +17,7 @@ class contenetproviderd with ChangeNotifier, DiagnosticableTreeMixin {
   List get list_contenet => _list_contenet;
   List get selected_filier => _list_contenet
       .where((element) => element['id'] == _selected_levels_id)
-      .toList();
+      .toList()[0]['filliere'];
 
   String get status => _status;
   int get id => _id;
@@ -27,6 +27,11 @@ class contenetproviderd with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<void> set_levels_id(id) async {
     _selected_levels_id = id;
+    notifyListeners();
+  }
+
+  Future<void> setfiliere_id(id) async {
+    _seletced_filliere_id = id;
     notifyListeners();
   }
 
