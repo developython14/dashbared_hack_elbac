@@ -17,6 +17,7 @@ class contenetproviderd with ChangeNotifier, DiagnosticableTreeMixin {
   Future<void> getallcontenet() async {
     _list_contenet = await getdata();
     _status = 'loaded';
+    print('hado homa les levels');
     print(_list_contenet);
     notifyListeners();
   }

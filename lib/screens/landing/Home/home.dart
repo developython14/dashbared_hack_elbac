@@ -1,3 +1,5 @@
+import 'package:dashboared_hakelbac/host/base_url.dart';
+import 'package:dashboared_hakelbac/providers/content/content.dart';
 import 'package:dashboared_hakelbac/providers/stories/pubs.dart';
 import 'package:dashboared_hakelbac/providers/stories/stories.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +36,20 @@ class _HomeState extends State<Home> {
   File? story_garde_to_insert;
   List<File>? files_stories_added;
   File? cv;
+  String new_name_niveau = '';
+  String new_abrev = '';
 
   Future<void> add_new_pub_post() async {
-    final url = Uri.parse('https://servicessaudi.de.r.appspot.com/post_pubs/');
+    final url = Uri.parse(Base_url + 'post_pubs/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
-    request.fields.addAll({'url': pub_link});
+    request.fields.addAll({
+      'title': new_name_niveau,
+      'abre': new_abrev,
+      'order':
+          context.watch<contenetproviderd>().list_contenet.length.toString()
+    });
     try {
       final photo = http.MultipartFile.fromBytes(
           'image', await cv!.readAsBytes(),
@@ -58,9 +67,21 @@ class _HomeState extends State<Home> {
     var jsonResponse = convert.jsonDecode(response.body);
   }
 
+  Future<void> add_new_niveau() async {
+    final url = Uri.parse(Base_url + 'post_level/');
+    var request = http.MultipartRequest('POST', url);
+    final headers = {'Content-type': 'multipart/form-data'};
+    request.headers.addAll(headers);
+    request.fields.addAll({'url': pub_link});
+    var push = await request.send();
+    var response = await http.Response.fromStream(push);
+    print(response.body);
+
+    var jsonResponse = convert.jsonDecode(response.body);
+  }
+
   Future<void> add_new_story() async {
-    final url =
-        Uri.parse('https://servicessaudi.de.r.appspot.com/post_stories/');
+    final url = Uri.parse(Base_url + 'post_stories/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
@@ -458,6 +479,11 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    new_name_niveau = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'title'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -468,6 +494,11 @@ class _HomeState extends State<Home> {
                 },
               ),
               TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    new_abrev = value;
+                  });
+                },
                 decoration: InputDecoration(hintText: 'abreveiation'),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
