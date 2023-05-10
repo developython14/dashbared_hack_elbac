@@ -737,7 +737,7 @@ class _HomeState extends State<Home> {
                         hei: hei,
                         title: e['title'],
                         color: Color.fromARGB(255, 217, 72, 62),
-                        abre: '3as',
+                        abre: e['abre'],
                         path: '/filieres',
                       ))
                   .toList(),
