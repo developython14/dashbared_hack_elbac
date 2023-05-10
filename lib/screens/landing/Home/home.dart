@@ -39,8 +39,8 @@ class _HomeState extends State<Home> {
   String new_name_niveau = '';
   String new_abrev = '';
 
-  Future<void> add_new_pub_post() async {
-    final url = Uri.parse(Base_url + 'post_pubs/');
+  Future<void> add_new_niveau() async {
+    final url = Uri.parse(Base_url + 'post_level/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
     var jsonResponse = convert.jsonDecode(response.body);
   }
 
-  Future<void> add_new_niveau() async {
+  Future<void> add_new_niveau__() async {
     final url = Uri.parse(Base_url + 'post_level/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
@@ -370,7 +370,7 @@ class _HomeState extends State<Home> {
               onPressed: () async {
                 await showDialog(
                   context: context,
-                  builder: (context) => FutureProgressDialog(add_new_pub_post(),
+                  builder: (context) => FutureProgressDialog(add_new_niveau(),
                       message: Text('Loading...')),
                 );
               },
@@ -525,8 +525,12 @@ class _HomeState extends State<Home> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child: const Text('Confirm '),
-              onPressed: () {
-                Navigator.of(context).pop();
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => FutureProgressDialog(add_new_niveau(),
+                      message: Text('Loading...')),
+                );
               },
             ),
           ],
@@ -725,32 +729,18 @@ class _HomeState extends State<Home> {
           SizedBox(
             height: 800,
             child: ReorderableListView(
-              children: [
-                levels_componant(
-                  key: ValueKey('value'),
-                  hei: hei,
-                  title: 'السنة الثالثة ثانوي ',
-                  color: Color.fromARGB(255, 217, 72, 62),
-                  abre: '3as',
-                  path: '/filieres',
-                ),
-                levels_componant(
-                  key: ValueKey('free'),
-                  hei: hei,
-                  title: 'السنة الثانية  ثانوي ',
-                  color: Color.fromARGB(255, 210, 227, 24),
-                  abre: '2as',
-                  path: '/filieres',
-                ),
-                levels_componant(
-                  key: ValueKey('fre4e'),
-                  hei: hei,
-                  title: 'السنة الأولى   ثانوي ',
-                  color: Color.fromARGB(255, 222, 46, 175),
-                  abre: '1as',
-                  path: '/filieres',
-                )
-              ],
+              children: context
+                  .watch<contenetproviderd>()
+                  .list_contenet
+                  .map((e) => levels_componant(
+                        key: ValueKey(e['id']),
+                        hei: hei,
+                        title: e['title'],
+                        color: Color.fromARGB(255, 217, 72, 62),
+                        abre: '3as',
+                        path: '/filieres',
+                      ))
+                  .toList(),
               onReorder: (oldIndex, newIndex) {
                 setState(() {
                   if (oldIndex < newIndex) {
