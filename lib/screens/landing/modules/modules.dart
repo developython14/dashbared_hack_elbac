@@ -29,7 +29,7 @@ class _modulesState extends State<modules> {
     request.fields.addAll({
       'title': title,
       'filiere_id':
-          context.watch<contenetproviderd>().selected_levels_id.toString()
+          context.watch<contenetproviderd>().selected_fielere_id.toString()
     });
     try {
       final photo = http.MultipartFile.fromBytes(
@@ -122,7 +122,8 @@ class _modulesState extends State<modules> {
   Widget build(BuildContext context) {
     final hei = MediaQuery.of(context).size.height;
     print('hadi');
-    print(context.watch<contenetproviderd>().selected_levels_id.toString());
+    print(context.watch<contenetproviderd>().selected_filier);
+    print(context.watch<contenetproviderd>().selected_modules);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
@@ -135,24 +136,18 @@ class _modulesState extends State<modules> {
               Container(
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: ReorderableListView(
-                  children: [
-                    module_componant(
-                      key: ValueKey('free'),
-                      hei: hei,
-                      title: 'العلوم الفيزيائية',
-                      abre:
-                          'https://2as.ency-education.com/uploads/1/0/9/0/1090282/icon-new-english_orig.png',
-                      path: '/profs',
-                    ),
-                    module_componant(
-                      key: ValueKey('freeeee'),
-                      hei: hei,
-                      title: ' العلوم الطبيعية ',
-                      abre:
-                          'https://2as.ency-education.com/uploads/1/0/9/0/1090282/icon-new-sciences_orig.png',
-                      path: '/profs',
-                    ),
-                  ],
+                  children: context
+                      .watch<contenetproviderd>()
+                      .selected_modules
+                      .map((e) => module_componant(
+                            key: ValueKey('free'),
+                            hei: hei,
+                            title: 'العلوم الفيزيائية',
+                            abre:
+                                'https://2as.ency-education.com/uploads/1/0/9/0/1090282/icon-new-english_orig.png',
+                            path: '/profs',
+                          ))
+                      .toList(),
                   onReorder: (oldIndex, newIndex) {},
                 ),
               ),

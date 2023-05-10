@@ -113,9 +113,6 @@ class _filliersState extends State<filliers> {
   @override
   Widget build(BuildContext context) {
     final hei = MediaQuery.of(context).size.height;
-    print('hadi id of levels');
-    print(context.read<contenetproviderd>().selected_levels_id);
-    print(context.read<contenetproviderd>().selected_filier);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(

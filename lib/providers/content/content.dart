@@ -18,6 +18,7 @@ class contenetproviderd with ChangeNotifier, DiagnosticableTreeMixin {
   List get selected_filier => _list_contenet
       .where((element) => element['id'] == _selected_levels_id)
       .toList()[0]['filliere'];
+  List get selected_modules => selected_filier[0]['modules'];
 
   String get status => _status;
   int get id => _id;
