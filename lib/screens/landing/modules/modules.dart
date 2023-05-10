@@ -7,6 +7,7 @@ import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'dart:math' as math;
+import 'dart:io';
 
 class modules extends StatefulWidget {
   const modules({Key? key}) : super(key: key);
@@ -16,6 +17,9 @@ class modules extends StatefulWidget {
 }
 
 class _modulesState extends State<modules> {
+  String title = '';
+  File? cv;
+
   Future<void> add_new_modules__() async {
     final url = Uri.parse(Base_url + 'post_filiere/');
     var request = http.MultipartRequest('POST', url);
@@ -25,15 +29,70 @@ class _modulesState extends State<modules> {
       'order':
           context.watch<contenetproviderd>().selected_filier.length.toString(),
       'title': 'title',
-      'abre': 'abrev',
-      'level_id':
+      'filiere_id':
           context.watch<contenetproviderd>().selected_levels_id.toString()
     });
     var push = await request.send();
     var response = await http.Response.fromStream(push);
-    print(response.body);
 
     var jsonResponse = convert.jsonDecode(response.body);
+  }
+
+  Future<void> _dialogBuilder_cree_un_modules(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('cree un niveau'),
+          content: Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    title = value;
+                  });
+                },
+                decoration: InputDecoration(hintText: 'title'),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Confirm '),
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => FutureProgressDialog(
+                      add_new_modules__(),
+                      message: Text('Loading...')),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -76,7 +135,10 @@ class _modulesState extends State<modules> {
                 children: [
                   ElevatedButton(onPressed: () {}, child: Text('edit modules')),
                   ElevatedButton(
-                      onPressed: () {}, child: Text('add new modules')),
+                      onPressed: () {
+                        _dialogBuilder_cree_un_modules(context);
+                      },
+                      child: Text('add new modules')),
                 ],
               ),
             ],
