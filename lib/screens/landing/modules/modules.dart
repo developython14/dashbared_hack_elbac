@@ -22,14 +22,14 @@ class _modulesState extends State<modules> {
   File? cv;
 
   Future<void> add_new_modules__() async {
-    final url = Uri.parse(Base_url + 'post_filiere/');
+    final url = Uri.parse(Base_url + 'post_modules/');
     var request = http.MultipartRequest('POST', url);
     final headers = {'Content-type': 'multipart/form-data'};
     request.headers.addAll(headers);
     request.fields.addAll({
       'order':
           context.watch<contenetproviderd>().selected_filier.length.toString(),
-      'title': 'title',
+      'title': title,
       'filiere_id':
           context.watch<contenetproviderd>().selected_levels_id.toString()
     });
@@ -45,7 +45,6 @@ class _modulesState extends State<modules> {
 
     var push = await request.send();
     var response = await http.Response.fromStream(push);
-
     var jsonResponse = convert.jsonDecode(response.body);
   }
 
